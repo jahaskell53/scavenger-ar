@@ -74,6 +74,7 @@
     <a-sphere
       href="http://google.com"
       id="marker"
+      hidden="true"
       position="-5 3 -3"
       radius="04.0"
       color="#EF2D5E"
@@ -192,6 +193,7 @@ function success(position) {
     console.log(i);
     if (i == 0 || i == 1) {
       document.getElementById("tint").hidden = true;
+      document.getElementById("marker").hidden = false;
     }
     document.getElementById("tint").style.backgroundColor = colorArray[i];
 }
@@ -266,7 +268,22 @@ function error() {
        
       };
 
-      function timer(){
+    
+
+
+  AFRAME.registerComponent("marker", {
+    schema: {
+      default: "",
+    },
+    init() {
+      const sky = document.querySelector("a-sky");
+      var b = false;
+      this.el.addEventListener("click", () => {
+        document.getElementById("count").innerText = (
+          parseInt(document.getElementById("count").innerText) + 1
+        ).toString();
+
+        function timer(){
     var sec = 20;
     var timer = setInterval(function(){
         document.getElementById('timer').innerHTML='00:'+sec;
@@ -281,19 +298,6 @@ function error() {
 }
 
 timer();
-
-
-  AFRAME.registerComponent("marker", {
-    schema: {
-      default: "",
-    },
-    init() {
-      const sky = document.querySelector("a-sky");
-      var b = false;
-      this.el.addEventListener("click", () => {
-        document.getElementById("count").innerText = (
-          parseInt(document.getElementById("count").innerText) + 1
-        ).toString();
         const marker = document.getElementById("marker");
         const parent = marker.parentNode;
         marker.parentNode.removeChild(marker);
