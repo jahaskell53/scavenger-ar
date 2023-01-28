@@ -159,7 +159,7 @@
           console.log('Checking location...');
           navigator.geolocation.getCurrentPosition(success, error);
       }
-      setTimeout(getLocation, 1000);
+      var time = setTimeout(getLocation, 1000);
   }
 
   function success(position) {
@@ -198,6 +198,7 @@
       }
       console.log(i);
       if (i == 0) {
+        clearInterval(time);
         // document.getElementById("tint").setAttribute("visible", false);
         tint.parentNode.removeChild(tint);
         document.getElementById("scene").appendChild(marker);
