@@ -1,70 +1,104 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>AR.js A-Frame Location-based</title>
-<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-<script>
+  <head>
+    <title>AR.js A-Frame Location-based</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script>
+      // import this on your HTML
+      window.addEventListener("load", () => {
+        const camera = document.querySelector("[camera]");
+        const marker = document.querySelector("#box");
+        console.log("hello");
 
-  
-  // import this on your HTML
-window.addEventListener('load', () => {
-    const camera = document.querySelector('[camera]');
-    const marker = document.querySelector('#box');
-    console.log("hello")
-    
-    let check;
+        let check;
 
-    camera.addEventListener("gps-camera-update-position", (e) => {
-      if(e.detail.position.latitude >= 41.82692 -   0.001 && e.detail.position.latitude <= 41.82692 +   0.001 ) {
-        console.log("close enough");
-        console.log("current lat", e.detail.position.latitude)
-        document.querySelector("#scene").transparent = false;
-      } else {
-        console.log("not close");
-        document.querySelector("#scene").transparent = true;
-      }
-    })
+        camera.addEventListener("gps-camera-update-position", e => {
+          if (
+            e.detail.position.latitude >= 41.82692 - 0.001 &&
+            e.detail.position.latitude <= 41.82692 + 0.001
+          ) {
+            console.log("close enough");
+            console.log("current lat", e.detail.position.latitude);
+            document.querySelector("#scene").transparent = false;
+          } else {
+            console.log("not close");
+            document.querySelector("#scene").transparent = true;
+          }
+        });
 
-    check = setInterval(() => {
-            cameraPosition = camera.object3D.position;
-            console.log(cameraPosition);
-            markerPosition = marker.object3D.position;
-            distance = cameraPosition.distanceTo(markerPosition)
-            // do what you want with the distance:
-            console.log(distance);
-            console.log("camera pos", document.querySelector("#camera").object3D.position);
-            navigator.geolocation.getCurrentPosition(val => console.log(val));
+        navigator.geolocation.getCurrentPosition(val =>{ 
+          console.log("val", val);
 
+          marker.setAttribute("gps-new-entity-place", {
+          latitude:val.coords.latitude,
+          longitude: val.coords.longitude,
+        });
+        marker.components["gps-new-entity-place"].updateComponent();
+
+        })
+
+       
+
+        check = setInterval(() => {
+          cameraPosition = camera.object3D.position;
+          console.log(cameraPosition);
+          markerPosition = marker.object3D.position;
+          distance = cameraPosition.distanceTo(markerPosition);
+          // do what you want with the distance:
+          console.log(distance);
+          console.log(
+            "camera pos",
+            document.querySelector("#camera").object3D.position
+          );
+          navigator.geolocation.getCurrentPosition(val => console.log(val));
         }, 2000);
 
-    marker.addEventListener('markerFound', () => {
-        let cameraPosition = camera.object3D.position;
-        let markerPosition = marker.object3D.position;
-        let distance = cameraPosition.distanceTo(markerPosition)
-  
-        check = setInterval(() => {
+        marker.addEventListener("markerFound", () => {
+          let cameraPosition = camera.object3D.position;
+          let markerPosition = marker.object3D.position;
+          let distance = cameraPosition.distanceTo(markerPosition);
+
+          check = setInterval(() => {
             cameraPosition = camera.object3D.position;
             markerPosition = marker.object3D.position;
-            distance = cameraPosition.distanceTo(markerPosition)
+            distance = cameraPosition.distanceTo(markerPosition);
 
             // do what you want with the distance:
             console.log(distance);
-        }, 100);
-    });
+          }, 100);
+        });
 
-    marker.addEventListener('markerLost', () => {
-      clearInterval(check);
-    })
-})
-</script>
-<script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
-<script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
-</head>
-<body>
-<a-scene id="scene" vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' background="color: blue" renderer='antialias: true; alpha: true'>
-    <a-camera id="camera" gps-new-camera='gpsMinDistance: 5'></a-camera>
-    <a-entity id="box" material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 41.824978784027444; longitude: -71.40142179733104" scale="100 100 100"></a-entity>
-    <!-- <a-entity material='color: blue' geometry='primitive: box' gps-new-entity-place="latitude: 42.82495; longitude: -70.40145" scale="10 10 10"></a-entity> -->
-</a-scene>
-</body>
+        marker.addEventListener("markerLost", () => {
+          clearInterval(check);
+        });
+      });
+    </script>
+    <script
+      type="text/javascript"
+      src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"
+    ></script>
+  </head>
+  <body>
+    <a-scene
+      id="scene"
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
+      background="color: blue"
+      renderer="antialias: true; alpha: true"
+    >
+      <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
+      <a-entity
+        id="box"
+        material="color: red"
+        geometry="primitive: box"
+        gps-new-entity-place="latitude: 41.824978784027444; longitude: -71.40142179733104"
+        scale="100 100 100"
+      ></a-entity>
+      <!-- <a-entity material='color: blue' geometry='primitive: box' gps-new-entity-place="latitude: 42.82495; longitude: -70.40145" scale="10 10 10"></a-entity> -->
+    </a-scene>
+  </body>
 </html>
