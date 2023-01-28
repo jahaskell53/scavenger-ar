@@ -1,3 +1,4 @@
+console.log("getting location");
 getLocation();
 
 document.getElementById("tint").width = window.innerWidth;
