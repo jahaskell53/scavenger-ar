@@ -2,6 +2,105 @@
 
 
 
+
+
+<style>
+  .uiwrapper {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .uiblock {
+    font-family: sans-serif;
+    font-size: 4vmin;
+    width: 10em;
+    height: 1em;
+    display: inline-block;
+    color: #fff;
+    background: rgba(0, 0, 100, 0.5);
+    padding: 1em 2em;
+    margin-top: 20vh;
+  }
+
+  #tint {
+    width: 100vw !important;
+    height: 120vh !important;
+    margin-top: -20vh !important;
+    opacity: 1.0;
+  }
+
+  
+
+  #timer {
+    margin-top: 30vh !important;
+  }
+  #score {
+    margin-top: 40vh !important;
+  }
+
+  .as-console-wrapper {
+    /* ignore console warnings in snippet view */
+    display: none !important;
+  }
+</style>
+
+
+<body>
+  <a-scene cursor="rayOrigin:mouse" vr-mode-ui="enabled: false"
+  arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
+
+  renderer="antialias: true; alpha: true">
+  <a-sound id="sound" src="src: url(sound.mp3)" autoplay="true" loop="true" position="0 2 5" on="1"></a-sound>
+
+    <a-entity
+      cursor="fuse: true; fuseTimeout: 500"
+      position="0 0 -1"
+      geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+      material="color: black; shader: flat"
+    >
+    </a-entity>
+    <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
+    <!-- <a-sky
+      src="#entrance"
+      rotation="0 -90 0"
+      position="0 0 0"
+      id="src-img-tpl"
+    ></a-sky> -->
+    <a-sphere
+      href="http://google.com"
+      id="marker"
+      position="-5 3 -3"
+      radius="04.0"
+      color="#EF2D5E"
+      marker
+    ></a-sphere>
+    
+    <a-assets>
+      <!-- <audio id="river" src="assets/Bg-music.wav" autoplay="true" loop="true"></audio> -->
+    </a-assets>
+  </a-scene>
+  <script
+      type="text/javascript"
+      src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"
+    ></script>
+  <h1 id="count" class="uiblock uiwrapper">0</h1>
+  <h1 id="timer" class="uiblock uiwrapper">00:30</h1>
+  <h1 id="score" class="uiblock uiwrapper">0</h1>
+  <div id="tint" class="uiblock uiwrapper"></div>
+</body>
+
+<script src="frank.js" ></script>
+
+
 <script defer type="text/javascript">
   var count = 0;
 
@@ -225,99 +324,3 @@ timer();
     },
   });
 </script>
-
-<style>
-  .uiwrapper {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    text-align: center;
-    pointer-events: none;
-  }
-
-  .uiblock {
-    font-family: sans-serif;
-    font-size: 4vmin;
-    width: 10em;
-    height: 1em;
-    display: inline-block;
-    color: #fff;
-    background: rgba(0, 0, 100, 0.5);
-    padding: 1em 2em;
-    margin-top: 20vh;
-  }
-
-  #tint {
-    width: 100vw !important;
-    height: 120vh !important;
-    margin-top: -20vh !important;
-    opacity: 1.0;
-  }
-
-  
-
-  #timer {
-    margin-top: 30vh !important;
-  }
-  #score {
-    margin-top: 40vh !important;
-  }
-
-  .as-console-wrapper {
-    /* ignore console warnings in snippet view */
-    display: none !important;
-  }
-</style>
-
-
-<body>
-  <a-scene cursor="rayOrigin:mouse" vr-mode-ui="enabled: false"
-  arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
-
-  renderer="antialias: true; alpha: true">
-  <a-sound id="sound" src="src: url(sound.mp3)" autoplay="true" loop="true" position="0 2 5" on="1"></a-sound>
-
-    <a-entity
-      cursor="fuse: true; fuseTimeout: 500"
-      position="0 0 -1"
-      geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-      material="color: black; shader: flat"
-    >
-    </a-entity>
-    <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
-    <!-- <a-sky
-      src="#entrance"
-      rotation="0 -90 0"
-      position="0 0 0"
-      id="src-img-tpl"
-    ></a-sky> -->
-    <a-sphere
-      href="http://google.com"
-      id="marker"
-      position="-5 3 -3"
-      radius="04.0"
-      color="#EF2D5E"
-      marker
-    ></a-sphere>
-    
-    <a-assets>
-      <!-- <audio id="river" src="assets/Bg-music.wav" autoplay="true" loop="true"></audio> -->
-    </a-assets>
-  </a-scene>
-  <script
-      type="text/javascript"
-      src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"
-    ></script>
-  <h1 id="count" class="uiblock uiwrapper">0</h1>
-  <h1 id="timer" class="uiblock uiwrapper">00:30</h1>
-  <h1 id="score" class="uiblock uiwrapper">0</h1>
-  <div id="tint" class="uiblock uiwrapper"></div>
-</body>
-
-<script src="frank.js" ></script>
