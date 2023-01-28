@@ -3,6 +3,33 @@
 <head>
 <title>AR.js A-Frame Location-based</title>
 <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+<script>
+  // import this on your HTML
+window.addEventListener('load', () => {
+    const camera = document.querySelector('[camera]');
+    const marker = document.querySelector('a-marker');
+    let check;
+
+    marker.addEventListener('markerFound', () => {
+        let cameraPosition = camera.object3D.position;
+        let markerPosition = marker.object3D.position;
+        let distance = cameraPosition.distanceTo(markerPosition)
+
+        check = setInterval(() => {
+            cameraPosition = camera.object3D.position;
+            markerPosition = marker.object3D.position;
+            distance = cameraPosition.distanceTo(markerPosition)
+
+            // do what you want with the distance:
+            console.log(distance);
+        }, 100);
+    });
+
+    marker.addEventListener('markerLost', () => {
+      clearInterval(check);
+    })
+})
+</script>
 <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
 <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
 </head>
