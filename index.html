@@ -185,11 +185,14 @@ function success(position) {
     // el_4.innerHTML = coordinateList;
     
     console.log(averageDistance, firstDistance);
-    i = Math.floor(averageDistance / (firstDistance + 0.00000000001) * 6);
+    i = Math.floor(averageDistance / (firstDistance) * 6);
     if (i == 6) {
         i = 5;
     }
     console.log(i);
+    if (i == 0 || i == 1) {
+      document.getElementById("tint").hidden = true;
+    }
     document.getElementById("tint").style.backgroundColor = colorArray[i];
 }
 
@@ -271,6 +274,7 @@ function error() {
         console.log("timer");
       
         if (sec < 0) {
+          document.getElementById("tint").hidden = false;
             clearInterval(timer);
         }
     }, 1000);
@@ -311,6 +315,7 @@ timer();
         count++;
         if (count >= 10) {
             document.getElementById("score") = parseInt(document.getElementById("score")) + 100;
+            document.getElementById("tint").hidden = false;
         }
 
         // if (b) {
