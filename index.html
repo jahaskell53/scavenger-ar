@@ -1,5 +1,32 @@
 <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
 <script type="text/javascript">
+  function handle() {
+    const sky = document.querySelector("a-sky");
+    var b = false;
+    this.el.addEventListener("click", () => {
+      document.getElementById("count").innerText = (
+        parseInt(document.getElementById("count").innerText) + 1
+      ).toString();
+      const marker = document.getElementById("marker");
+      const parent = marker.parentNode;
+      marker.parentNode.removeChild(marker);
+      const newc = document.createElement("a-sphere");
+      randomX = Math.random() * 10 - 5;
+      randomY = Math.random() * 10 - 5;
+      newc.setAttribute("position", `${randomX} ${randomY} -3`);
+      newc.setAttribute("radius", "4.0");
+      newc.id = "marker";
+      parent.appendChild(newc);
+
+      if (b) {
+        sky.setAttribute("src", "#entrance");
+      } else {
+        sky.setAttribute("src", "#study");
+      }
+      b = !b;
+      console.log("clicked");
+    });
+  }
   AFRAME.registerComponent("marker", {
     schema: {
       default: "",
@@ -8,10 +35,12 @@
       const sky = document.querySelector("a-sky");
       var b = false;
       this.el.addEventListener("click", () => {
-        document.getElementById("count").innerText = (parseInt(document.getElementById("count").innerText) + 1).toString()
+        document.getElementById("count").innerText = (
+          parseInt(document.getElementById("count").innerText) + 1
+        ).toString();
         const marker = document.getElementById("marker");
         const parent = marker.parentNode;
-        marker.parentNode.removeChild(marker);  
+        marker.parentNode.removeChild(marker);
         const newc = document.createElement("a-sphere");
         randomX = Math.random() * 10 - 5;
         randomY = Math.random() * 10 - 5;
@@ -19,8 +48,7 @@
         newc.setAttribute("radius", "4.0");
         newc.id = "marker";
         parent.appendChild(newc);
-
-
+        newc.addEventListener(handle);
 
         if (b) {
           sky.setAttribute("src", "#entrance");
@@ -36,31 +64,31 @@
 
 <style>
   .uiwrapper {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  text-align: center;
-  pointer-events: none;
-}
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    pointer-events: none;
+  }
 
-.uiblock {
-  font-family: sans-serif;
-  font-size: 4vmin;
-  width: 10em;
-  height: 1em;
-  display: inline-block;
-  color: #fff;
-  background: rgba(0, 0, 100, 0.5);
-  padding: 1em 2em;
-  margin-top: 20vh;
-}
+  .uiblock {
+    font-family: sans-serif;
+    font-size: 4vmin;
+    width: 10em;
+    height: 1em;
+    display: inline-block;
+    color: #fff;
+    background: rgba(0, 0, 100, 0.5);
+    padding: 1em 2em;
+    margin-top: 20vh;
+  }
 
-.as-console-wrapper {
-  /* ignore console warnings in snippet view */
-  display: none !important;
-}
+  .as-console-wrapper {
+    /* ignore console warnings in snippet view */
+    display: none !important;
+  }
 </style>
 
 <body>
@@ -94,5 +122,4 @@
     </a-assets>
   </a-scene>
   <h1 id="count" class="uiblock uiwrapper">0</h1>
-
 </body>
