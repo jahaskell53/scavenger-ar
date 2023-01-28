@@ -5,14 +5,7 @@
 <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 <script>
 
-check = setInterval(() => {
-            cameraPosition = camera.object3D.position;
-            markerPosition = marker.object3D.position;
-            distance = cameraPosition.distanceTo(markerPosition)
-            // do what you want with the distance:
-            console.log(distance);
-        }, 2000);
-      check();
+  
   // import this on your HTML
 window.addEventListener('load', () => {
     const camera = document.querySelector('[camera]');
@@ -20,19 +13,20 @@ window.addEventListener('load', () => {
     console.log("hello")
     let check;
 
-    // check = setInterval(() => {
-    //         cameraPosition = camera.object3D.position;
-    //         markerPosition = marker.object3D.position;
-    //         distance = cameraPosition.distanceTo(markerPosition)
-    //         // do what you want with the distance:
-    //         console.log(distance);
-    //     }, 2000);
+    check = setInterval(() => {
+            cameraPosition = camera.object3D.position;
+            console.log(cameraPosition);
+            markerPosition = marker.object3D.position;
+            distance = cameraPosition.distanceTo(markerPosition)
+            // do what you want with the distance:
+            console.log(distance);
+        }, 2000);
 
     marker.addEventListener('markerFound', () => {
         let cameraPosition = camera.object3D.position;
         let markerPosition = marker.object3D.position;
         let distance = cameraPosition.distanceTo(markerPosition)
-
+        console.log("camera pos", document.querySelector("#camera").object3D.position);
         check = setInterval(() => {
             cameraPosition = camera.object3D.position;
             markerPosition = marker.object3D.position;
@@ -53,7 +47,7 @@ window.addEventListener('load', () => {
 </head>
 <body>
 <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
-    <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
+    <a-camera id="camera" gps-new-camera='gpsMinDistance: 5'></a-camera>
     <a-entity id="box" material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 41.824978784027444; longitude: -71.40142179733104" scale="10 10 10"></a-entity>
     <!-- <a-entity material='color: blue' geometry='primitive: box' gps-new-entity-place="latitude: 42.82495; longitude: -70.40145" scale="10 10 10"></a-entity> -->
 </a-scene>
