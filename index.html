@@ -106,6 +106,8 @@
 <script defer type="text/javascript">
         document.getElementById("tint").setAttribute("visible", false);
         var tint = document.getElementById("tint");
+        tint.parentNode.removeChild(tint);
+
         console.log("set to false");
 
     var count = 0;
