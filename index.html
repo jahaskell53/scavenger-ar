@@ -9,6 +9,8 @@
       var b = false;
       this.el.addEventListener("click", () => {
         document.getElementById("count").innerText = (parseInt(document.getElementById("count").innerText) + 1).toString()
+        const marker = document.getElementById("marker");
+        marker.parentNode.removeChild(marker);    
         if (b) {
           sky.setAttribute("src", "#entrance");
         } else {
