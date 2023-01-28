@@ -60,7 +60,7 @@ window.addEventListener('load', () => {
 <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
 </head>
 <body>
-<a-scene id="scene" vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' background="color: red" renderer='antialias: true; alpha: true'>
+<a-scene id="scene" vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' background="color: blue" renderer='antialias: true; alpha: true'>
     <a-camera id="camera" gps-new-camera='gpsMinDistance: 5'></a-camera>
     <a-entity id="box" material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 41.824978784027444; longitude: -71.40142179733104" scale="100 100 100"></a-entity>
     <!-- <a-entity material='color: blue' geometry='primitive: box' gps-new-entity-place="latitude: 42.82495; longitude: -70.40145" scale="10 10 10"></a-entity> -->
