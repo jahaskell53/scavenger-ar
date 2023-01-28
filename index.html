@@ -212,7 +212,7 @@
         const sky = document.querySelector("a-sky");
         var b = false;
         let marker = document.getElementById("marker");
-        marker.addEventListener("click", () => {
+        this.el.addEventListener("click", () => {
           console.log("clicked")
           document.getElementById("count").innerText = (
             parseInt(document.getElementById("count").innerText) + 1
