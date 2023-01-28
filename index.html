@@ -9,6 +9,7 @@
         const camera = document.querySelector("[camera]");
         const marker = document.querySelector("#box");
         console.log("hello");
+        document.querySelector("#scene").setAttribute("background", "transparent: true;");
 
         let check;
 
@@ -19,7 +20,7 @@
           ) {
             console.log("close enough");
             console.log("current lat", e.detail.position.latitude);
-            document.querySelector("#scene").transparent = false;
+            document.querySelector("#scene").setAttribute("background", "transparent: true;");
           } else {
             console.log("not close");
             document.querySelector("#scene").transparent = true;
@@ -87,7 +88,7 @@
       id="scene"
       vr-mode-ui="enabled: false"
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
-      background="color: blue"
+ 
       renderer="antialias: true; alpha: true"
     >
       <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
