@@ -15,7 +15,7 @@ window.addEventListener('load', () => {
             cameraPosition = camera.object3D.position;
             markerPosition = marker.object3D.position;
             distance = cameraPosition.distanceTo(markerPosition)
-
+          console.log(marker);
             // do what you want with the distance:
             console.log(marker.distance);
         }, 2000);
