@@ -40,10 +40,10 @@
         const marker = document.getElementById(`marker`);
         console.log("markler", marker)
         marker.color = "#EF2D5E";
-        marker.setAttribute("color", "#EF2D5E");
         const parent = marker.parentNode;
         marker.parentNode.removeChild(marker);
         const newc = document.createElement("a-sphere");
+        newc.setAttribute("color", "#EF2D5E");
         randomX = Math.random() * 20 - 10;
         randomY = Math.random() * 20 - 10;
         newc.setAttribute("position", `${randomX} ${randomY} -3`);
