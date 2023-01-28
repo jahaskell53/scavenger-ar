@@ -1,5 +1,11 @@
 getLocation();
 
+document.getElementById("tint").width = window.innerWidth;
+document.getElementById("tint").height = window.innerHeight;
+document.getElementById("tint").backgroundColor = "#";
+document.getElementById("tint").style.zIndex = "5";
+document.getElementById("tint").style.position = "absolute";
+
 let coordinateList = [];
 var firstDistance = 0;
 var cnt = false;
