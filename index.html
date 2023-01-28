@@ -1,36 +1,53 @@
 <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
 <script type="text/javascript">
-  AFRAME.registerComponent('marker', {
+  AFRAME.registerComponent("marker", {
     schema: {
-      default: ''
+      default: "",
     },
     init() {
-      const sky = document.querySelector('a-sky');
-      var b = false
-      this.el.addEventListener('click', () => {
+      const sky = document.querySelector("a-sky");
+      var b = false;
+      this.el.addEventListener("click", () => {
         if (b) {
-          sky.setAttribute('src', "#entrance");
+          sky.setAttribute("src", "#entrance");
         } else {
-          sky.setAttribute('src', "#study");
+          sky.setAttribute("src", "#study");
         }
         b = !b;
-        console.log('clicked');
+        console.log("clicked");
       });
-    }
+    },
   });
-
 </script>
 
 <body>
-
   <a-scene cursor="rayOrigin:mouse">
-    <a-sky src="#entrance" rotation="0 -90 0" position="0 0 0" id="src-img-tpl"></a-sky>
-    <a-sphere href="http://google.com" id="marker" position="-10 3 -15" radius="0.65" color="#EF2D5E" marker></a-sphere>
+    <a-entity
+      cursor="fuse: true; fuseTimeout: 500"
+      position="0 0 -1"
+      geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+      material="color: black; shader: flat"
+    >
+    </a-entity>
+    <a-sky
+      src="#entrance"
+      rotation="0 -90 0"
+      position="0 0 0"
+      id="src-img-tpl"
+    ></a-sky>
+    <a-sphere
+      href="http://google.com"
+      id="marker"
+      position="-10 3 -15"
+      radius="0.65"
+      color="#EF2D5E"
+      marker
+    ></a-sphere>
     <a-assets>
       <!-- <audio id="river" src="assets/Bg-music.wav" autoplay="true" loop="true"></audio> -->
-      <img id="entrance" src="https://i.imgur.com/wjobVTN.jpg">
-      <img id="study" src="https://i.imgur.com/I7PAB.jpg">
-      <img id="parking" src="https://i.imgur.com/HNluPrg.jpg">
+      <img id="entrance" src="https://i.imgur.com/wjobVTN.jpg" />
+      <img id="study" src="https://i.imgur.com/I7PAB.jpg" />
+      <img id="parking" src="https://i.imgur.com/HNluPrg.jpg" />
     </a-assets>
-
   </a-scene>
+</body>
