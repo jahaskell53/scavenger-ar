@@ -20,13 +20,14 @@ window.addEventListener('load', () => {
             distance = cameraPosition.distanceTo(markerPosition)
             // do what you want with the distance:
             console.log(distance);
+            console.log("camera pos", document.querySelector("#camera").object3D.position);
         }, 2000);
 
     marker.addEventListener('markerFound', () => {
         let cameraPosition = camera.object3D.position;
         let markerPosition = marker.object3D.position;
         let distance = cameraPosition.distanceTo(markerPosition)
-        console.log("camera pos", document.querySelector("#camera").object3D.position);
+  
         check = setInterval(() => {
             cameraPosition = camera.object3D.position;
             markerPosition = marker.object3D.position;
