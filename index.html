@@ -16,19 +16,19 @@
         marker.setAttribute('cursor',{ rayOrigin: 'mouse' }); marker.addEventListener('click', e => { alert("clicked"); })
 
         camera.addEventListener("gps-camera-update-position", e => {
-          if (
-            e.detail.position.latitude >= 41.82544214 - 0.001 &&
-            e.detail.position.latitude <= 41.82544214  + 0.001
-          ) {
-            console.log("close enough");
-            console.log("current lat", e.detail.position.latitude);
-            document.querySelector("#scene").setAttribute("background", "transparent: false;");
-            document.querySelector("#scene").setAttribute("background", "color: blue;");
-          } else {
-            console.log("not close");
-            document.querySelector("#scene").setAttribute("background", "transparent: true;");
-            // document.querySelector("#scene").setAttribute("background", "color: blue;");
-          }
+          // if (
+          //   e.detail.position.latitude >= 41.82544214 - 0.001 &&
+          //   e.detail.position.latitude <= 41.82544214  + 0.001
+          // ) {
+          //   console.log("close enough");
+          //   console.log("current lat", e.detail.position.latitude);
+          //   document.querySelector("#scene").setAttribute("background", "transparent: false;");
+          //   document.querySelector("#scene").setAttribute("background", "color: blue;");
+          // } else {
+          //   console.log("not close");
+          //   document.querySelector("#scene").setAttribute("background", "transparent: true;");
+          //   // document.querySelector("#scene").setAttribute("background", "color: blue;");
+          // }
         });
 
         navigator.geolocation.getCurrentPosition(val =>{ 
