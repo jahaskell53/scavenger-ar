@@ -17,6 +17,7 @@ window.addEventListener('load', () => {
     camera.addEventListener("gps-camera-update-position", (e) => {
       if(e.detail.position.latitude >= 41.82692 -   0.01 && e.detail.position.latitude <= 41.82692 +   0.01 ) {
         console.log("close enough");
+        console.log("current lat", e.detail.position.latitude)
         document.querySelector("#scene").transparent = false;
       } else {
         console.log("not close");
