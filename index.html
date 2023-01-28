@@ -1,5 +1,6 @@
 <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
 <script type="text/javascript">
+  var count = 0;
   function handle() {
     const sky = document.querySelector("a-sky");
     var b = false;
@@ -27,6 +28,35 @@
       console.log("clicked");
     });
   }
+
+  function stuff() {
+        document.getElementById("count").innerText = (
+          parseInt(document.getElementById("count").innerText) + 1
+        ).toString();
+        const marker = document.getElementById(`marker`);
+        console.log("markler", marker)
+        const parent = marker.parentNode;
+        marker.parentNode.removeChild(marker);
+        const newc = document.createElement("a-sphere");
+        randomX = Math.random() * 10 - 5;
+        randomY = Math.random() * 10 - 5;
+        newc.setAttribute("position", `${randomX} ${randomY} -3`);
+        newc.setAttribute("radius", "4.0");
+        newc.id = `marker`;
+        parent.appendChild(newc);
+        newc.addEventListener("click", stuff)
+        AFRAME.registerComponent(`marker${count}`, {
+          schema: {
+            default: "",
+          },
+          handle,
+        });
+        count++;
+
+       
+      };
+
+
   AFRAME.registerComponent("marker", {
     schema: {
       default: "",
@@ -46,14 +76,16 @@
         randomY = Math.random() * 10 - 5;
         newc.setAttribute("position", `${randomX} ${randomY} -3`);
         newc.setAttribute("radius", "4.0");
-        newc.id = "marker";
+        newc.id = `marker`;
         parent.appendChild(newc);
-        AFRAME.registerComponent("marker", {
+        newc.addEventListener("click", stuff)
+        AFRAME.registerComponent(`marker${count}`, {
           schema: {
             default: "",
           },
           handle,
         });
+        count++;
 
         if (b) {
           sky.setAttribute("src", "#entrance");
