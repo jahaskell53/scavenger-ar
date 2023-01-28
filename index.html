@@ -211,7 +211,9 @@
       init() {
         const sky = document.querySelector("a-sky");
         var b = false;
+        let marker = document.getElementById("marker");
         marker.addEventListener("click", () => {
+          console.log("clicked")
           document.getElementById("count").innerText = (
             parseInt(document.getElementById("count").innerText) + 1
           ).toString();
@@ -352,74 +354,74 @@
 
 
 
-    AFRAME.registerComponent("marker", {
-      schema: {
-        default: "",
-      },
-      init() {
-        const sky = document.querySelector("a-sky");
-        var b = false;
-        marker.addEventListener("click", () => {
-          document.getElementById("count").innerText = (
-            parseInt(document.getElementById("count").innerText) + 1
-          ).toString();
+  //   AFRAME.registerComponent("marker", {
+  //     schema: {
+  //       default: "",
+  //     },
+  //     init() {
+  //       const sky = document.querySelector("a-sky");
+  //       var b = false;
+  //       marker.addEventListener("click", () => {
+  //         document.getElementById("count").innerText = (
+  //           parseInt(document.getElementById("count").innerText) + 1
+  //         ).toString();
 
-          function timer(){
-      var sec = 20;
-      var timer = setInterval(function(){
-          document.getElementById('timer').innerHTML='00:'+sec;
-          sec--;
-          console.log("timer");
+  //         function timer(){
+  //     var sec = 20;
+  //     var timer = setInterval(function(){
+  //         document.getElementById('timer').innerHTML='00:'+sec;
+  //         sec--;
+  //         console.log("timer");
 
-          if (sec < 0) {
-            // document.getElementById("tint").hidden = false;
-        document.getElementById("tint").setAttribute("visible", false);
-        tint.parentNode.removeChild(tint);
-
-
-              clearInterval(timer);
-          }
-      }, 1000);
-  }
-
-  timer();
-          const marker = document.getElementById("marker");
-          const parent = marker.parentNode;
-          marker.parentNode.removeChild(marker);
-          const newc = document.createElement("a-sphere");
-          randomX = Math.random() * 10 - 5;
-          randomY = Math.random() * 10 - 5;
-          newc.setAttribute("color", "#EF2D5E");
-          newc.setAttribute("position", `${randomX} ${randomY} -3`);
-          newc.setAttribute("radius", "4.0");
-          newc.id = `marker`;
-          parent.appendChild(newc);
-          newc.addEventListener("click", stuff)
-          AFRAME.registerComponent(`marker${count}`, {
-            schema: {
-              default: "",
-            },
-            handle,
-          });
-          count++;
-          if (count >= 10) {
-              document.getElementById("score") = parseInt(document.getElementById("score")) + 100;
-              // document.getElementById("tint").hidden = false;
-        document.getElementById("tint").setAttribute("visible", false);
-        tint.parentNode.removeChild(tint);
+  //         if (sec < 0) {
+  //           // document.getElementById("tint").hidden = false;
+  //       document.getElementById("tint").setAttribute("visible", false);
+  //       tint.parentNode.removeChild(tint);
 
 
-          }
+  //             clearInterval(timer);
+  //         }
+  //     }, 1000);
+  // }
 
-          // if (b) {
-          //   sky.setAttribute("src", "#entrance");
-          // } else {
-          //   sky.setAttribute("src", "#study");
-          // }
-          // b = !b;
-          console.log("clicked");
-        });
-      },
-    });
+  // timer();
+  //         const marker = document.getElementById("marker");
+  //         const parent = marker.parentNode;
+  //         marker.parentNode.removeChild(marker);
+  //         const newc = document.createElement("a-sphere");
+  //         randomX = Math.random() * 10 - 5;
+  //         randomY = Math.random() * 10 - 5;
+  //         newc.setAttribute("color", "#EF2D5E");
+  //         newc.setAttribute("position", `${randomX} ${randomY} -3`);
+  //         newc.setAttribute("radius", "4.0");
+  //         newc.id = `marker`;
+  //         parent.appendChild(newc);
+  //         newc.addEventListener("click", stuff)
+  //         AFRAME.registerComponent(`marker${count}`, {
+  //           schema: {
+  //             default: "",
+  //           },
+  //           handle,
+  //         });
+  //         count++;
+  //         if (count >= 10) {
+  //             document.getElementById("score") = parseInt(document.getElementById("score")) + 100;
+  //             // document.getElementById("tint").hidden = false;
+  //       document.getElementById("tint").setAttribute("visible", false);
+  //       tint.parentNode.removeChild(tint);
+
+
+  //         }
+
+  //         // if (b) {
+  //         //   sky.setAttribute("src", "#entrance");
+  //         // } else {
+  //         //   sky.setAttribute("src", "#study");
+  //         // }
+  //         // b = !b;
+  //         console.log("clicked");
+  //       });
+  //     },
+  //   });
 
 </script>
