@@ -49,6 +49,7 @@
     vr-mode-ui="enabled: false"
     arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
     renderer="antialias: true; alpha: true"
+    id="scene"
   >
     <a-sound
       id="sound"
@@ -105,7 +106,7 @@
         document.getElementById("tint").setAttribute("visible", false);
         var tint = document.getElementById("tint");
         // tint.parentNode.removeChild(tint);
-
+        marker.parentNode.removeChild(marker);
         console.log("set to false");
 
     var count = 0;
@@ -196,10 +197,11 @@
           i = 5;
       }
       console.log(i);
-      if (i == 0 || i == 1) {
-        document.getElementById("tint").setAttribute("visible", false);
+      if (i == 0) {
+        // document.getElementById("tint").setAttribute("visible", false);
         tint.parentNode.removeChild(tint);
-        document.getElementById("marker").setAttribute("visible", true);
+        document.getElementById("scene").appendChild(marker);
+        // document.getElementById("marker").setAttribute("visible", true);
 
       }
       document.getElementById("tint").style.backgroundColor = colorArray[i];
@@ -221,7 +223,7 @@
     function handle() {
       const sky = document.querySelector("a-sky");
       var b = false;
-      this.el.addEventListener("click", () => {
+      marker.addEventListener("click", () => {
         document.getElementById("count").innerText = (
           parseInt(document.getElementById("count").innerText) + 1
         ).toString();
@@ -285,7 +287,7 @@
       init() {
         const sky = document.querySelector("a-sky");
         var b = false;
-        this.el.addEventListener("click", () => {
+        marker.addEventListener("click", () => {
           document.getElementById("count").innerText = (
             parseInt(document.getElementById("count").innerText) + 1
           ).toString();
