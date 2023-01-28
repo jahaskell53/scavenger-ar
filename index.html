@@ -48,7 +48,12 @@
         newc.setAttribute("radius", "4.0");
         newc.id = "marker";
         parent.appendChild(newc);
-        newc.addEventListener(handle);
+        AFRAME.registerComponent("marker", {
+          schema: {
+            default: "",
+          },
+          handle,
+        });
 
         if (b) {
           sky.setAttribute("src", "#entrance");
