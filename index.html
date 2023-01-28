@@ -11,7 +11,16 @@ window.addEventListener('load', () => {
     const camera = document.querySelector('[camera]');
     const marker = document.querySelector('#box');
     console.log("hello")
+    
     let check;
+
+    camera.addEventListener("gps-camera-update-position", (e) => {
+      if(e.detail.position.latitude >= 41.82692 -   0.1 && e.detail.position.latitude <= 41.82692 +   0.1 ) {
+        console.log("close enough");
+      } else {
+        console.log("not close");
+      }
+    })
 
     check = setInterval(() => {
             cameraPosition = camera.object3D.position;
@@ -21,6 +30,8 @@ window.addEventListener('load', () => {
             // do what you want with the distance:
             console.log(distance);
             console.log("camera pos", document.querySelector("#camera").object3D.position);
+            navigator.geolocation.getCurrentPosition(val => console.log(val));
+
         }, 2000);
 
     marker.addEventListener('markerFound', () => {
