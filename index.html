@@ -13,19 +13,14 @@
         const parent = marker.parentNode;
         marker.parentNode.removeChild(marker);  
         const newc = document.createElement("a-sphere");
-        newc.setAttribute("position", "-4 2 -3");
+        randomX = Math.random() * 10 - 5;
+        randomY = Math.random() * 10 - 5;
+        newc.setAttribute("position", `${randomX} ${randomY} -3`);
         newc.setAttribute("radius", "4.0");
         newc.id = "marker";
         parent.appendChild(newc);
 
-        <a-sphere
-      href="http://google.com"
-      id="marker"
-      position="-5 3 -3"
-      radius="4.0"
-      color="#EF2D5E"
-      marker
-    ></a-sphere>
+
 
         if (b) {
           sky.setAttribute("src", "#entrance");
