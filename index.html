@@ -52,6 +52,8 @@
             document.querySelector("#camera").object3D.position
           );
           navigator.geolocation.getCurrentPosition(val => console.log(val));
+
+          console.log("box coords: ", marker.getAttribute("gps-new-entity-place"));
         }, 2000);
 
         marker.addEventListener("markerFound", () => {
