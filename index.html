@@ -41,10 +41,10 @@
         const parent = marker.parentNode;
         marker.parentNode.removeChild(marker);
         const newc = document.createElement("a-sphere");
-        randomX = Math.random() * 10 - 5;
-        randomY = Math.random() * 10 - 5;
+        randomX = Math.random() * 20 - 10;
+        randomY = Math.random() * 20 - 10;
         newc.setAttribute("position", `${randomX} ${randomY} -3`);
-        newc.setAttribute("radius", "4.0");
+        newc.setAttribute("radius", "2.0");
         newc.id = `marker`;
         parent.appendChild(newc);
         newc.addEventListener("click", stuff)
