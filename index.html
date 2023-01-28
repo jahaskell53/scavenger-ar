@@ -62,7 +62,7 @@
       };
 
       function timer(){
-    var sec = 5;
+    var sec = 20;
     var timer = setInterval(function(){
         document.getElementById('timer').innerHTML='00:'+sec;
         sec--;
@@ -107,7 +107,7 @@ timer();
           handle,
         });
         count++;
-        if (count >= 20) {
+        if (count >= 10) {
             document.getElementById("score") = parseInt(document.getElementById("score")) + 100;
         }
 
