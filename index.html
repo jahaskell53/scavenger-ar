@@ -10,7 +10,23 @@
       this.el.addEventListener("click", () => {
         document.getElementById("count").innerText = (parseInt(document.getElementById("count").innerText) + 1).toString()
         const marker = document.getElementById("marker");
-        marker.parentNode.removeChild(marker);    
+        const parent = marker.parentNode;
+        marker.parentNode.removeChild(marker);  
+        const newc = document.createElement("a-sphere");
+        newc.setAttribute("position", "-4 2 -3");
+        newc.setAttribute("radius", "4.0");
+        newc.id = "marker";
+        parent.appendChild(newc);
+
+        <a-sphere
+      href="http://google.com"
+      id="marker"
+      position="-5 3 -3"
+      radius="4.0"
+      color="#EF2D5E"
+      marker
+    ></a-sphere>
+
         if (b) {
           sky.setAttribute("src", "#entrance");
         } else {
