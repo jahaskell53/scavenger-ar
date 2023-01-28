@@ -192,7 +192,7 @@ function success(position) {
     }
     console.log(i);
     if (i == 0 || i == 1) {
-      document.getElementById("tint").hidden = true;
+      document.getElementById("tint").setAttribute("visible", false);
       document.getElementById("marker").setAttribute("visible", true);
 
     }
@@ -292,7 +292,9 @@ function error() {
         console.log("timer");
       
         if (sec < 0) {
-          document.getElementById("tint").hidden = false;
+          // document.getElementById("tint").hidden = false;
+      document.getElementById("tint").setAttribute("visible", false);
+
             clearInterval(timer);
         }
     }, 1000);
@@ -320,7 +322,9 @@ timer();
         count++;
         if (count >= 10) {
             document.getElementById("score") = parseInt(document.getElementById("score")) + 100;
-            document.getElementById("tint").hidden = false;
+            // document.getElementById("tint").hidden = false;
+      document.getElementById("tint").setAttribute("visible", false);
+
         }
 
         // if (b) {
