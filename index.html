@@ -13,6 +13,8 @@
 
         let check;
 
+        marker.setAttribute('cursor',{ rayOrigin: 'mouse' }); marker.addEventListener('click', e => { alert("clicked"); })
+
         camera.addEventListener("gps-camera-update-position", e => {
           if (
             e.detail.position.latitude >= 41.82544214 - 0.001 &&
@@ -95,13 +97,16 @@
       renderer="antialias: true; alpha: true"
     >
       <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
-      <a-entity
+      <a-entity id="box" cursor="rayOrigin: mouse" raycaster="objects: .box"></a-entity>
+      <!-- <a-entity
         id="box"
         material="color: red"
         geometry="primitive: box"
         gps-new-entity-place="latitude: 41.824978784027444; longitude: -71.40142179733104"
         scale="100 100 100"
-      ></a-entity>
+        class="clickable"
+      gesture-handler="minScale: 0.25; maxScale: 10"
+      ></a-entity> -->
       <!-- <a-entity material='color: blue' geometry='primitive: box' gps-new-entity-place="latitude: 42.82495; longitude: -70.40145" scale="10 10 10"></a-entity> -->
     </a-scene>
   </body>
