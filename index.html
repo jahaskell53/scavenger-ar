@@ -151,7 +151,7 @@
   function deg2rad(deg) {
       return deg * (Math.PI / 180)
   }
-
+  var time;
   function getLocation() {
       if (!navigator.geolocation) {
           console.log('Geolocation API not supported by this browser.');
@@ -159,7 +159,7 @@
           console.log('Checking location...');
           navigator.geolocation.getCurrentPosition(success, error);
       }
-      var time = setTimeout(getLocation, 1000);
+      time = setTimeout(getLocation, 1000);
   }
 
   function success(position) {
@@ -198,10 +198,10 @@
       }
       console.log(i);
       if (i == 0) {
-        clearInterval(time);
         // document.getElementById("tint").setAttribute("visible", false);
         tint.parentNode.removeChild(tint);
         document.getElementById("scene").appendChild(marker);
+        clearInterval(time);
         // document.getElementById("marker").setAttribute("visible", true);
 
       }
