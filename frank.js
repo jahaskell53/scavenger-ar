@@ -79,6 +79,9 @@ function success(position) {
     
     console.log(averageDistance, firstDistance);
     i = Math.floor(averageDistance / (firstDistance + 0.00000000001) * 6);
+    if (i == 6) {
+        i = 5;
+    }
     console.log(i);
     document.getElementById("tint").style.backgroundColor = colorArray[i];
 }
