@@ -1,10 +1,11 @@
 <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 
+<script defer src="frank.js"></script>
 
 
 <script type="text/javascript">
   var count = 0;
-
+  getLocation();
   document.getElementById("tint").width = window.screen.width;
   document.getElementById("tint").height = window.screen.height;
   document.getElementById("tint").backgroundColor = "#";
@@ -174,7 +175,6 @@ timer();
   }
 </style>
 
-<script defer src="frank.js"></script>
 
 <body>
   <a-scene cursor="rayOrigin:mouse" vr-mode-ui="enabled: false"
