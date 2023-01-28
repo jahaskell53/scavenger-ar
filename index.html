@@ -51,7 +51,7 @@
             "camera pos",
             document.querySelector("#camera").object3D.position
           );
-          navigator.geolocation.getCurrentPosition(val => console.log("current cords", val));
+          navigator.geolocation.getCurrentPosition(val => console.log("current cords", val.coords));
           console.log("box coords: ", marker.getAttribute("gps-new-entity-place"));
         }, 2000);
 
