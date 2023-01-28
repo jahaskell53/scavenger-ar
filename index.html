@@ -4,6 +4,15 @@
 <title>AR.js A-Frame Location-based</title>
 <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 <script>
+
+check = setInterval(() => {
+            cameraPosition = camera.object3D.position;
+            markerPosition = marker.object3D.position;
+            distance = cameraPosition.distanceTo(markerPosition)
+            // do what you want with the distance:
+            console.log(distance);
+        }, 2000);
+      check();
   // import this on your HTML
 window.addEventListener('load', () => {
     const camera = document.querySelector('[camera]');
@@ -11,13 +20,13 @@ window.addEventListener('load', () => {
     console.log("hello")
     let check;
 
-    check = setInterval(() => {
-            cameraPosition = camera.object3D.position;
-            markerPosition = marker.object3D.position;
-            distance = cameraPosition.distanceTo(markerPosition)
-            // do what you want with the distance:
-            console.log(distance);
-        }, 2000);
+    // check = setInterval(() => {
+    //         cameraPosition = camera.object3D.position;
+    //         markerPosition = marker.object3D.position;
+    //         distance = cameraPosition.distanceTo(markerPosition)
+    //         // do what you want with the distance:
+    //         console.log(distance);
+    //     }, 2000);
 
     marker.addEventListener('markerFound', () => {
         let cameraPosition = camera.object3D.position;
