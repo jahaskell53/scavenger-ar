@@ -74,7 +74,7 @@
     <a-sphere
       href="http://google.com"
       id="marker"
-      hidden="true"
+      visible="false"
       position="-5 3 -3"
       radius="04.0"
       color="#EF2D5E"
@@ -193,7 +193,8 @@ function success(position) {
     console.log(i);
     if (i == 0 || i == 1) {
       document.getElementById("tint").hidden = true;
-      document.getElementById("marker").hidden = false;
+      document.getElementById("marker").setAttribute("visible", true);
+
     }
     document.getElementById("tint").style.backgroundColor = colorArray[i];
 }
