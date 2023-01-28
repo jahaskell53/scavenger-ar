@@ -98,7 +98,7 @@
   <div id="tint" class="uiblock uiwrapper"></div>
 </body>
 
-<script src="frank.js" ></script>
+<!-- <script src="frank.js" ></script> -->
 
 
 <script defer type="text/javascript">
@@ -225,12 +225,12 @@ function error() {
       newc.id = "marker";
       parent.appendChild(newc);
 
-      if (b) {
-        sky.setAttribute("src", "#entrance");
-      } else {
-        sky.setAttribute("src", "#study");
-      }
-      b = !b;
+      // if (b) {
+      //   sky.setAttribute("src", "#entrance");
+      // } else {
+      //   sky.setAttribute("src", "#study");
+      // }
+      // b = !b;
       console.log("clicked");
     });
   }
@@ -313,12 +313,12 @@ timer();
             document.getElementById("score") = parseInt(document.getElementById("score")) + 100;
         }
 
-        if (b) {
-          sky.setAttribute("src", "#entrance");
-        } else {
-          sky.setAttribute("src", "#study");
-        }
-        b = !b;
+        // if (b) {
+        //   sky.setAttribute("src", "#entrance");
+        // } else {
+        //   sky.setAttribute("src", "#study");
+        // }
+        // b = !b;
         console.log("clicked");
       });
     },
