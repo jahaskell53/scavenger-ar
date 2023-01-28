@@ -8,6 +8,7 @@
       const sky = document.querySelector("a-sky");
       var b = false;
       this.el.addEventListener("click", () => {
+        document.getElementById("count").innerText = (parseInt(document.getElementById("count").innerText) + 1).toString()
         if (b) {
           sky.setAttribute("src", "#entrance");
         } else {
@@ -79,6 +80,6 @@
       <img id="parking" src="https://i.imgur.com/HNluPrg.jpg" />
     </a-assets>
   </a-scene>
-  <h1 class="uiblock uiwrapper">0</h1>
+  <h1 id="count" class="uiblock uiwrapper">0</h1>
 
 </body>
