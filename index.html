@@ -4,6 +4,12 @@
 
 <script type="text/javascript">
   var count = 0;
+
+  document.getElementById("tint").width = window.screen.width;
+  document.getElementById("tint").height = window.screen.height;
+  document.getElementById("tint").backgroundColor = "#";
+  document.getElementById("tint").style.zIndex = "5";
+  document.getElementById("tint").style.position = "absolute";
   function handle() {
     const sky = document.querySelector("a-sky");
     var b = false;
@@ -146,6 +152,14 @@ timer();
     margin-top: 20vh;
   }
 
+  #tint {
+    width: 100vw !important;
+    height: 120vh !important;
+    margin-top: -20vh !important;
+  }
+
+  
+
   #timer {
     margin-top: 30vh !important;
   }
@@ -204,4 +218,5 @@ timer();
   <h1 id="count" class="uiblock uiwrapper">0</h1>
   <h1 id="timer" class="uiblock uiwrapper">00:30</h1>
   <h1 id="score" class="uiblock uiwrapper">0</h1>
+  <div id="tint" class="uiblock uiwrapper" ></div>
 </body>
