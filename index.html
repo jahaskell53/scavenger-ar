@@ -48,9 +48,9 @@
     arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false" renderer="antialias: true; alpha: true">
 
     <a-assets>
-      <a-asset-items id="robot" src="campfire/campfire.gltf"></a-asset-items>
+      <a-asset-items id="campfire" src="campfire/campfire.gltf"></a-asset-items>
     </a-assets>
-    <a-entity id="marker" gltf-model="#robot" visible="false" position="-5 3 -3"></a-entity>
+    <a-entity id="marker" gltf-model="#campfire" visible="false" position="-5 3 -3"></a-entity>
     <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
   </a-scene>
 
@@ -92,7 +92,7 @@
       if (ballCount >= 10) {
         score = score + 100;
         document.getElementById("score").innerText = "Score: " + score;
-        document.getElementById("timer").innerText = "Time: " + "00:00";
+        document.getElementById("timer").innerText = "Time: 00:00";
         clearInterval(timer);
         document.getElementById("tint").style.opacity = 0.5;
         gameDone = true;
@@ -104,8 +104,7 @@
       randomY = Math.random() * 20 - 10;
       randomZ = Math.random() * 20 - 10;
       newc.setAttribute("position", `${randomX} ${randomY} ${randomZ}`);
-      // newc.setAttribute("radius", "2.0");
-      newc.setAttribute("gltf-model", "#robot");
+      newc.setAttribute("gltf-model", "#campfire");
       newc.id = `marker`;
       parent.appendChild(newc);
 
@@ -121,6 +120,7 @@
 
   let coordinateList = [];
   var firstDistance = 0;
+  // TODO: is this being set to true
   var cnt = false;
   const colorArray = [
     "#FF0000",
@@ -180,7 +180,7 @@
       getDistanceFromLatLonInM(lat, long, targetLat, targetLong),
       2
     );
-    console.log('SUCCESS TARGET LAT', targetLat, targetLong);
+
     if (!cnt) {
       firstDistance = distance;
       cnt = true;
@@ -216,22 +216,19 @@
 
           }
           sec--;
-          console.log("timer");
-
+          // TODO: why?
           if (sec < 0 || gameDone) {
-            // document.getElementById("tint").hidden = false;
             document.getElementById("tint").style.opacity = 0.5;
             document.getElementById("timer").innerText = "Time: 00:00";
             clearInterval(timer);
             gameDone = true;
             foundPlace = false;
+            cnt = true;
             destCount++;
-
             main();
           }
         }, 1000);
       }
-
       timer();
       reachDestination();
     }
@@ -272,19 +269,15 @@
 
   function main() {
     console.log("hits main");
-    // RUN GAME BEGINNING SCRIPT
     var entities = parseURL(window.location.search);
     var numPoints = entities.length;
-
     if (destCount < numPoints) {
       console.log("destCount", destCount);
       getLocation();
       targetLat = entities[destCount].lat;
       targetLong = entities[destCount].lon;
-      console.log("destCount if statement");
     }
     else if (destCount === numPoints) {
-      // RUN GAME END SCRIPT
       alert("GAME OVER");
     }
   }
