@@ -1,19 +1,252 @@
-<html>
-  <head>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-  </head>
-  <body>
-    <a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
-      <a-assets>
-        <a-asset-items id="robot" src="./campfire.glb"> </a-asset-items>
-      </a-assets>
-      <a-entity gltf-model="#robot"></a-entity>
-    </a-scene>
-  </body>
-</html>
+<script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
 
+<style>
+  .uiwrapper {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .uiblock {
+    font-family: sans-serif;
+    font-size: 4vmin;
+    width: 10em;
+    height: 1em;
+    display: inline-block;
+    color: #fff;
+    background-color: rgba(0, 0, 100, 0.5);
+    padding: 1em 2em;
+    margin-top: 20vh;
+  }
+
+  #tint {
+    width: 100vw !important;
+    height: 120vh !important;
+    margin-top: -20vh !important;
+    opacity: 0.5;
+  }
+
+  #timer {
+    margin-top: 30vh !important;
+  }
+
+  #score {
+    margin-top: 40vh !important;
+  }
+
+  .as-console-wrapper {
+    display: none !important;
+  }
+</style>
+
+<body>
+  <a-scene
+    cursor="rayOrigin:mouse"
+    vr-mode-ui="enabled: false"
+    arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
+    renderer="antialias: true; alpha: true"
+  >
+
+  <a-assets>
+    <a-asset-items id="robot" src="campfire.glb"> </a-asset-items>
+  </a-assets>
+  <a-entity id="marker" gltf-model="#robot" visible="false" position="-5 3 -3"></a-entity>
+
+    <a-entity
+      cursor="fuse: true; fuseTimeout: 500"
+      position="0 0 -1"
+      geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+      material="color: black; shader: flat"
+    >
+    </a-entity>
+    <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
+    <!-- <a-sphere href="http://google.com" id="marker" visible="false" position="-5 3 -3" radius="04.0" color="#EF2D5E"
+      marker></a-sphere> -->
+  </a-scene>
+
+  <script type="text/javascript"
+    src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"></script>
+  <script type="text/javascript"
+    src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+  <h1 id="count" class="uiblock uiwrapper">0</h1>
+  <h1 id="timer" class="uiblock uiwrapper">00:20</h1>
+  <h1 id="score" class="uiblock uiwrapper">0</h1>
+  <div id="tint" class="uiblock uiwrapper"></div>
+</body>
+
+<script defer type="text/javascript">
+  var ballCount = 0;
+  var gameDone = false;
+  var score = 0;
+  var timer;
+  var foundPlace = false;
+
+  function reachDestination() {
+    const marker = document.getElementById(`marker`);
+    marker.addEventListener("click", miniGame);
+
+    function miniGame() {
+      if (gameDone) {
+        return;
+      }
+      ballCount++;
+
+      document.getElementById("count").innerText = ballCount.toString();
+
+      const marker = document.getElementById(`marker`);
+      const parent = marker.parentNode;
+      marker.parentNode.removeChild(marker);
+
+      if (ballCount >= 10) {
+        score = score + 100;
+        document.getElementById("score").innerText = score;
+        document.getElementById("timer").innerText = "00:00";
+        clearInterval(timer);
+        document.getElementById("tint").style.opacity = 0.1;
+        gameDone = true;
+        return;
+      }
+
+      const newc = document.createElement("a-sphere");
+      newc.setAttribute("color", "#EF2D5E");
+      randomX = Math.random() * 20 - 10;
+      randomY = Math.random() * 20 - 10;
+      newc.setAttribute("position", `${randomX} 4 ${randomY}`);
+      newc.setAttribute("radius", "2.0");
+      newc.id = `marker`;
+      parent.appendChild(newc);
+
+      newc.addEventListener("click", miniGame);
+    }
+  }
+
+  getLocation();
+
+  document.getElementById("tint").width = window.innerWidth;
+  document.getElementById("tint").height = window.innerHeight;
+  document.getElementById("tint").style.position = "absolute";
+
+  let coordinateList = [];
+  var firstDistance = 0;
+  var cnt = false;
+  const colorArray = [
+    "#FF0000",
+    "#FF0000",
+    "#990066",
+    "#660099",
+    "#3300CC",
+    "#0000FF",
+  ];
+
+  function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
+    var R = 6371;
+    var dLat = deg2rad(lat2 - lat1);
+    var dLon = deg2rad(lon2 - lon1);
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c * 1000;
+    return d;
+  }
+
+  function round(num, places) {
+    var multiplier = Math.pow(10, places);
+    return Math.round(num * multiplier) / multiplier;
+  }
+
+  function getAvg(nums) {
+    const total = nums.reduce((acc, c) => acc + c, 0);
+    return total / nums.length;
+  }
+
+  function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+  }
+
+  function getLocation() {
+    if (!navigator.geolocation) {
+      console.log("Geolocation API not supported by this browser.");
+    } else {
+      console.log("Checking location...");
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+    setTimeout(getLocation, 1000);
+  }
+
+  function success(position) {
+    if (foundPlace) {
+      return;
+    }
+    let lat = round(position.coords.latitude, 4);
+    let long = round(position.coords.longitude, 4);
+    let distance = round(
+      getDistanceFromLatLonInM(lat, long, 41.82625, -71.401897),
+      2
+    );
+
+    if (!cnt) {
+      firstDistance = distance;
+      cnt = true;
+    }
+
+    if (coordinateList.length < 3) {
+      coordinateList.push(distance);
+    } else {
+      coordinateList.shift();
+      coordinateList.push(distance);
+    }
+
+    let averageDistance = getAvg(coordinateList);
+
+    i = Math.floor((averageDistance / firstDistance) * 4);
+    if (i >= 6) {
+      i = 5;
+    }
+    console.log(i);
+    if (i == 0 || i == 1 || i == 3 || i == 4) {
+      foundPlace = true;
+      document.getElementById("tint").style.opacity = 0;
+      console.log("opacity changed");
+      document.getElementById("marker").setAttribute("visible", true);
+
+      function timer() {
+        var sec = 20;
+        timer = setInterval(function () {
+          if (sec < 10) {
+            document.getElementById("timer").innerHTML = "00:0" + sec;
+          } else {
+            document.getElementById("timer").innerHTML = "00:" + sec;
+
+          }
+          sec--;
+          console.log("timer");
+
+          if (sec < 0 || gameDone) {
+            // document.getElementById("tint").hidden = false;
+            document.getElementById("tint").style.opacity = 0.5;
+            document.getElementById("timer").innerText = "00:00";
+            clearInterval(timer);
+            gameDone = true;
+          }
+        }, 1000);
+      }
+
+      timer();
+      reachDestination();
+    }
+    document.getElementById("tint").style.backgroundColor = colorArray[i];
+  }
+
+  function error() {
+    console.log("Geolocation error!");
+  }
+</script>
