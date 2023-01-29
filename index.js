@@ -219,7 +219,6 @@ function removeOverlay() {
   }
 
   let showOnce = false;
-
   function main() {
     if (window.location.search == ''){
       console.log("Nothing here!");
@@ -228,7 +227,7 @@ function removeOverlay() {
     }
     else if (!showOnce){
         showOnce = true;
-        setTimeout(removeOverlay, 10000);
+        setTimeout(removeOverlay, 5000);
         popupOverlay("Welcome and prepare to explore! This is a fully customized scavenger hunt game. The color of your screen will indicate how warm or cold you are to the next bonfire! Stay warm and play the minigames when you arrive to your destinations! Create hunts too and share with your friends");
     }
     var entities = parseURL(window.location.search);
