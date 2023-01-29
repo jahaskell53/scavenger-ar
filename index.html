@@ -290,6 +290,7 @@
       console.log("Nothing here!");
       document.getElementById("overlay").style.visibility = 'visible';
       setOverlayMessage("Nothing here! Maybe try another link.")
+      return;
     }
     var entities = parseURL(window.location.search);
     var numPoints = entities.length;
