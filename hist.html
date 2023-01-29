@@ -1,47 +1,5 @@
-<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="./index.css">
 
-<body>
-  <a-scene cursor="rayOrigin:mouse" vr-mode-ui="enabled: false"
-    arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false" renderer="antialias: true; alpha: true">
-    <a-assets>
-      <a-asset-items id="campfire" src="campfire/campfire.gltf"></a-asset-items>
-    </a-assets>
-    <a-entity id="marker" gltf-model="#campfire" visible="false" position="-5 3 -3"></a-entity>
-    <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
-  </a-scene>
-
-    <script type="text/javascript"
-      src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"></script>
-    <script type="text/javascript"
-      src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-
-    <h1 id="count" class="uiblock uiwrapper">Balls: 0</h1>
-    <h1 id="timer" class="uiblock uiwrapper">Time: 00:20</h1>
-    <h1 id="score" class="uiblock uiwrapper">Score: 0</h1>
-    <div id="tint" class="uiblock uiwrapper"></div>
-
-    <div hidden id="overlay" class="overlay">
-      <div class="jumbotron">
-        <h1 class="display-4">Scavenger-AR</h1>
-        <hr class="my-4">
-        <p id="overlay-message" class="lead">Sorry nothing here! Maybe try out a different link?</p>
-        <img class="gif" src="fire.gif">
-        <!--<button class="btn btn-secondary btn-lg" role="button">Start Game</button>-->
-      </div>
-    </div>
-  </body>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-<script defer type="text/javascript" >
+<script defer type="text/javascript">
   var ballCount = 0;
   var timer;
   var score = 0;
@@ -216,16 +174,8 @@
     console.log("Geolocation error!");
   }
   function popupOverlay(message) {
-    document.querySelector("canvas").hidden = true;
-    document.querySelector("canvas").style.opacity = 0;
-    document.getElementById("overlay").hidden = false;
+    document.getElementById("overlay").removeAttribute("hidden");;
     document.getElementById("overlay-message").innerHTML = message;
-  }
-function removeOverlay() {
-    document.querySelector("canvas").hidden = false;
-    document.querySelector("canvas").style.opacity = 100;
-    document.getElementById("overlay").hidden = true;
-    document.getElementById("overlay-message").innerHTML = "";
   }
 
   var destCount = 0;
@@ -255,17 +205,11 @@ function removeOverlay() {
     return entities;
   }
 
-  let showOnce = false;
   function main() {
-    if (window.location.search == ''){
+    if (window.location.search == '') {
       console.log("Nothing here!");
       popupOverlay("Nothing here! Maybe try another link.");
       return;
-    }
-    else if (!showOnce){
-        showOnce = true;
-        setTimeout(removeOverlay, 5000);
-        popupOverlay("Welcome and prepare to explore! This is a fully customized scavenger hunt game. The color of your screen will indicate how warm or cold you are to the next bonfire! Stay warm and play the minigames when you arrive to your destinations! Create hunts too and share with your friends");
     }
     var entities = parseURL(window.location.search);
     var numPoints = entities.length;
@@ -276,10 +220,9 @@ function removeOverlay() {
       targetLong = entities[destCount].lon;
     }
     else if (destCount === numPoints) {
-      popupOverlay("Congratulations you made it to all the bonfires! Share the link with your friends or create more hunts! Hope you enjoyed");
+      popupOverlay("Congratulations you beat the game! Share the link with your friends! Hope you enjoyed");
       alert("GAME OVER");
     }
   }
   main();
-
 </script>
