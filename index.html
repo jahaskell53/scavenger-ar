@@ -64,7 +64,7 @@
   <h1 id="timer" class="uiblock uiwrapper">Time: 00:20</h1>
   <h1 id="score" class="uiblock uiwrapper">Score: 0</h1>
   <div id="tint" class="uiblock uiwrapper"></div>
-  <div hidden id="overlay" class="uiblock uiwrapper">
+  <div hidden id="overlay" class="uiwrapper">
     <div class="container">
       <div class="row">
         <img style="width: 100vw" src="camping.webp">
@@ -289,7 +289,7 @@
     if (window.location.search == ''){
       console.log("Nothing here!");
       document.getElementById("overlay").style.visibility = 'visible';
-      setOverlayMessage("Nothing here! Maybe try another link.")
+      setOverlayMessage("Nothing here! Maybe try another link.");
       return;
     }
     var entities = parseURL(window.location.search);
