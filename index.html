@@ -59,7 +59,7 @@
       const parent = marker.parentNode;
       marker.parentNode.removeChild(marker);
 
-      if (ballCount >= 10) {
+      if (ballCount >= 5) {
         score = score + 100;
         clearInterval(timer)
         document.getElementById("score").innerText = "Score: " + score;
