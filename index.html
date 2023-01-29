@@ -218,6 +218,23 @@
       document.getElementById("tint").style.opacity = 0;
       console.log("opacity changed");
       document.getElementById("marker").setAttribute("visible", true);
+
+      function timer(){
+    var sec = 20;
+    var timer = setInterval(function(){
+        document.getElementById('timer').innerHTML='00:'+sec;
+        sec--;
+        console.log("timer");
+      
+        if (sec < 0) {
+          // document.getElementById("tint").hidden = false;
+      document.getElementById("tint").style.opacity = 1;
+            clearInterval(timer);
+        }
+    }, 1000);
+}
+
+timer();
       help();
     }
     document.getElementById("tint").style.backgroundColor = colorArray[i];
