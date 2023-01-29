@@ -66,7 +66,7 @@
 </body>
 
 <script defer type="text/javascript">
-  var count = 0;
+  var ballCount = 0;
   var gameDone = false;
   var score = 0;
   var timer;
@@ -80,21 +80,22 @@
       if (gameDone) {
         return;
       }
-      count++;
+      ballCount++;
 
-      document.getElementById("count").innerText = count.toString();
+      document.getElementById("count").innerText = ballCount.toString();
 
       const marker = document.getElementById(`marker`);
       const parent = marker.parentNode;
       marker.parentNode.removeChild(marker);
 
-      if (count >= 10) {
+      if (ballCount >= 10) {
         score = score + 100;
         document.getElementById("score").innerText = score;
         document.getElementById("timer").innerText = "00:00";
         clearInterval(timer);
         document.getElementById("tint").style.opacity = 0.1;
         gameDone = true;
+        return;
       }
 
       const newc = document.createElement("a-sphere");
@@ -215,7 +216,7 @@
           sec--;
           console.log("timer");
 
-          if (sec < 0) {
+          if (sec < 0 || gameDone) {
             // document.getElementById("tint").hidden = false;
             document.getElementById("tint").style.opacity = 0.5;
             document.getElementById("timer").innerText = "00:00";
