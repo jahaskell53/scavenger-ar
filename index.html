@@ -91,7 +91,7 @@
   <h1 id="count" class="uiblock uiwrapper">0</h1>
   <h1 id="timer" class="uiblock uiwrapper">00:30</h1>
   <h1 id="score" class="uiblock uiwrapper">0</h1>
-  <div id="tint" class="uiblock uiwrapper"></div>
+  <!-- <div id="tint" class="uiblock uiwrapper"></div> -->
 </body>
 
 <!-- <script src="frank.js" ></script> -->
@@ -100,7 +100,7 @@
 
   function help() {
     var count = 0;
-  function handle() {
+  function click() {
     const sky = document.querySelector("a-sky");
     var b = false;
     this.el.addEventListener("click", () => {
@@ -151,7 +151,7 @@
           schema: {
             default: "",
           },
-          handle,
+          click,
         });
         count++;
 
@@ -186,7 +186,7 @@
           schema: {
             default: "",
           },
-          handle,
+          click,
         });
         count++;
 
