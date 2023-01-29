@@ -286,15 +286,13 @@
 
   function main() {
     console.log("hits main");
-    var entities = parseURL(window.location.search);
-    var numPoints = entities.length;
-
-    // if no entities, then we should display an error screen
-    if (entities.length <= 0){
+    if (window.location.search == ''){
+      console.log("Nothing here!");
       document.getElementById("overlay").style.visibility = 'visible';
       setOverlayMessage("Nothing here! Maybe try another link.")
     }
-
+    var entities = parseURL(window.location.search);
+    var numPoints = entities.length;
     if (destCount < numPoints) {
       console.log("destCount", destCount);
       getLocation();
