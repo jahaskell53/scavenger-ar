@@ -188,6 +188,7 @@
   }
 function removeOverlay() {
     document.querySelector("canvas").hidden = false;
+    document.querySelector("canvas").style.opacity = 100;
     document.getElementById("overlay").hidden = true;
     document.getElementById("overlay-message").innerHTML = message;
   }
