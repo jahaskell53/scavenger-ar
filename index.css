@@ -18,7 +18,24 @@
   }
 
   .jumbotron {
+    position: relative;
     background-color:white;
+  }
+
+  .jumbotron h1 {
+    background: -webkit-linear-gradient(#b85a5a, rgb(255 136 0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .jumbotron button {
+    z-index: 10;
+    pointer-events:none;
+  }
+
+  .gif {
+    width: 10vw;
+    height: 10vw;
   }
 
   .uiwrapper {

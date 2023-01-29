@@ -1,270 +1,44 @@
-<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="./index.css">
+<html>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="./index.css">
 
-<body>
-  <a-scene cursor="rayOrigin:mouse" vr-mode-ui="enabled: false"
-    arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false" renderer="antialias: true; alpha: true">
+  <body>
 
-    <a-assets>
-      <a-asset-items id="campfire" src="campfire/campfire.gltf"></a-asset-items>
-    </a-assets>
-    <a-entity id="marker" gltf-model="#campfire" visible="false" position="-5 3 -3"></a-entity>
-    <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
-  </a-scene>
+    <a-scene cursor="rayOrigin:mouse" vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false" renderer="antialias: true; alpha: true">
 
-  <script type="text/javascript"
-    src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"></script>
-  <script type="text/javascript"
-    src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+      <a-assets>
+        <a-asset-items id="campfire" src="campfire/campfire.gltf"></a-asset-items>
+      </a-assets>
+      <a-entity id="marker" gltf-model="#campfire" visible="false" position="-5 3 -3"></a-entity>
+      <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
+    </a-scene>
 
-  <h1 id="count" class="uiblock uiwrapper">Balls: 0</h1>
-  <h1 id="timer" class="uiblock uiwrapper">Time: 00:20</h1>
-  <h1 id="score" class="uiblock uiwrapper">Score: 0</h1>
-  <div id="tint" class="uiblock uiwrapper"></div>
-  <div hidden id="overlay" class="overlay">
-    <div class="jumbotron">
-      <h1 class="display-4">Scavenger-AR</h1>
-      <hr class="my-4">
-      <p class="lead">Sorry nothing here! Maybe try out a different link?</p>
+    <script type="text/javascript"
+      src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"></script>
+    <script type="text/javascript"
+      src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+    <h1 id="count" class="uiblock uiwrapper">Balls: 0</h1>
+    <h1 id="timer" class="uiblock uiwrapper">Time: 00:20</h1>
+    <h1 id="score" class="uiblock uiwrapper">Score: 0</h1>
+    <div id="tint" class="uiblock uiwrapper"></div>
+
+    <div hidden id="overlay" class="overlay">
+      <div class="jumbotron">
+        <h1 class="display-4">Scavenger-AR</h1>
+        <hr class="my-4">
+        <p id="overlay-message" class="lead">Sorry nothing here! Maybe try out a different link?</p>
+        <img class="gif" src="fire.gif">
+        <!--<button class="btn btn-secondary btn-lg" role="button">Start Game</button>-->
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<script defer type="text/javascript">
-  var ballCount = 0;
-  var gameDone = false;
-  var score = 0;
-  var timer;
-  var foundPlace = false;
-
-  function reachDestination() {
-    const marker = document.getElementById("marker");
-    marker.addEventListener("click", miniGame);
-
-    function miniGame() {
-      if (gameDone) {
-        document.getElementById("marker").setAttribute("visible", false);
-        return;
-      }
-      ballCount++;
-
-      document.getElementById("count").innerText = "Balls: " + ballCount.toString();
-
-      const marker = document.getElementById("marker");
-      const parent = marker.parentNode;
-      marker.parentNode.removeChild(marker);
-
-      if (ballCount >= 10) {
-        score = score + 100;
-        clearInterval(timer)
-        document.getElementById("score").innerText = "Score: " + score;
-        document.getElementById("timer").innerText = "Time: 00:00";
-        document.getElementById("tint").style.opacity = 0.5;
-        gameDone = true;
-        return;
-      }
-
-      const newc = document.createElement("a-entity");
-      randomX = Math.random() * 20 - 10;
-      randomY = Math.random() * 20 - 10;
-      randomZ = Math.random() * 20 - 10;
-      newc.setAttribute("position", `${randomX} ${randomY} ${randomZ}`);
-      newc.setAttribute("gltf-model", "#campfire");
-      newc.id = `marker`;
-      parent.appendChild(newc);
-
-      newc.addEventListener("click", miniGame);
-    }
-  }
-
-  getLocation();
-
-  document.getElementById("tint").width = window.innerWidth;
-  document.getElementById("tint").height = window.innerHeight;
-  document.getElementById("tint").style.position = "absolute";
-
-  let coordinateList = [];
-  var firstDistance = 0;
-  // TODO: is this being set to true
-  var cnt = false;
-  const colorArray = [
-    "#FF0000",
-    "#FF0000",
-    "#990066",
-    "#660099",
-    "#3300CC",
-    "#0000FF",
-  ];
-
-  function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
-    var R = 6371;
-    var dLat = deg2rad(lat2 - lat1);
-    var dLon = deg2rad(lon2 - lon1);
-    var a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(deg2rad(lat1)) *
-      Math.cos(deg2rad(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c * 1000;
-    return d;
-  }
-
-  function round(num, places) {
-    var multiplier = Math.pow(10, places);
-    return Math.round(num * multiplier) / multiplier;
-  }
-
-  function getAvg(nums) {
-    const total = nums.reduce((acc, c) => acc + c, 0);
-    return total / nums.length;
-  }
-
-  function deg2rad(deg) {
-    return deg * (Math.PI / 180);
-  }
-
-  function getLocation() {
-    if (!navigator.geolocation) {
-      console.log("Geolocation API not supported by this browser.");
-    } else {
-      console.log("Checking location...");
-      navigator.geolocation.getCurrentPosition(success, error);
-    }
-    setTimeout(getLocation, 1000);
-  }
-
-  function success(position) {
-    if (foundPlace) {
-      return;
-    }
-    let lat = round(position.coords.latitude, 4);
-    let long = round(position.coords.longitude, 4);
-    let distance = round(
-      getDistanceFromLatLonInM(lat, long, targetLat, targetLong),
-      2
-    );
-
-    if (!cnt) {
-      firstDistance = distance;
-      cnt = true;
-    }
-
-    if (coordinateList.length < 3) {
-      coordinateList.push(distance);
-    } else {
-      coordinateList.shift();
-      coordinateList.push(distance);
-    }
-
-    let averageDistance = getAvg(coordinateList);
-
-    i = Math.floor((averageDistance / firstDistance) * 4);
-    if (i >= 6) {
-      i = 5;
-    }
-    console.log(i);
-    if (i == 0 || i == 1) {
-      ballCount = 0;
-      document.getElementById("count").innerText = "Balls: " + ballCount.toString();
-      // sec = 20;
-      document.getElementById("timer").innerText = "Time: 00:20";
-
-      foundPlace = true;
-      gameDone = false;
-      document.getElementById("tint").style.opacity = 0;
-      document.getElementById("marker").setAttribute("visible", true);
-
-      function timer() {
-        var sec = 20;
-        timer = setInterval(function () {
-          if (gameDone) {
-            return
-          }
-          if (sec < 10) {
-            document.getElementById("timer").innerHTML = "Time: 00:0" + sec;
-          } else {
-            document.getElementById("timer").innerHTML = "Time: 00:" + sec;
-          }
-          sec--;
-          if (sec <= 0) {
-            document.getElementById("tint").style.opacity = 0.5;
-            document.getElementById("timer").innerText = "Time: 00:00";
-            gameDone = true;
-            foundPlace = false;
-            cnt = true;
-            destCount++;
-            clearInterval(timer);
-            main();
-          }
-        }, 1000);
-      }
-      timer();
-      reachDestination();
-    }
-    document.getElementById("tint").style.backgroundColor = colorArray[i];
-  }
-
-  function error() {
-    console.log("Geolocation error!");
-  }
-  function popupOverlay(message){
-    document.getElementById("overlay").removeAttribute("hidden"); ;
-    document.getElementById("overlay-message").innerHTML = message;
-  }
-
-  var destCount = 0;
-  var targetLat = 0;
-  var targetLong = 0;
-
-
-  /**
-   * Parses the given URL into latitude and longitude pairs 
-   * @param {String} url the url formatted as .../?entities=lat_lon,lat_lon,...,lat_lon 
-   * @return {List[Dictionary]} a list of {'lat': lat, 'lon', lon} pairs 
-   * 
-   * For example:
-   *  http://.../?entities=41.826835_-71.399710,41.827835_-71.399710
-   *  becomes [{'lat': 41.826835, 'lon': -71.399710}, {'lat': 41.827835, 'lon': -71.399710}]
-   */
-  function parseURL(url) {
-    let entities = [];
-    var entities_url = url.split("=")[1];
-    var lat_lon_list = entities_url.split(",");
-    for (const lat_lon_str of lat_lon_list) {
-      lat_lon = lat_lon_str.split('_');
-      lat = parseFloat(lat_lon[0]);
-      lon = parseFloat(lat_lon[1]);
-      console.log(`(${lat}, ${lon})`);
-      entities.push({ 'lat': lat, 'lon': lon });
-    }
-    return entities;
-  }
-
-  function main() {
-    if (window.location.search == ''){
-      console.log("Nothing here!");
-      popupOverlay("Nothing here! Maybe try another link.");
-      return;
-    }
-    var entities = parseURL(window.location.search);
-    var numPoints = entities.length;
-    if (destCount < numPoints) {
-      console.log("destCount", destCount);
-      getLocation();
-      targetLat = entities[destCount].lat;
-      targetLong = entities[destCount].lon;
-    }
-    else if (destCount === numPoints) {
-      popupOverlay("Congratulations you beat the game! Share the link with your friends! Hope you enjoyed");
-      alert("GAME OVER");
-    }
-  }
-  main();
-</script>
+  <script defer type="text/javascript" src="index.js"></script>
+</html>
