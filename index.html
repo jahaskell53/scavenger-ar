@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
   var count = 0;
-  function click() {
+  function handle() {
     const sky = document.querySelector("a-sky");
     var b = false;
     this.el.addEventListener("click", () => {
@@ -23,6 +23,12 @@
       newc.id = "marker";
       parent.appendChild(newc);
 
+      if (b) {
+        sky.setAttribute("src", "#entrance");
+      } else {
+        sky.setAttribute("src", "#study");
+      }
+      b = !b;
       console.log("clicked");
     });
   }
@@ -45,24 +51,59 @@
         newc.id = `marker`;
         parent.appendChild(newc);
         newc.addEventListener("click", stuff)
-        // AFRAME.registerComponent(`marker${count}`, {
-        //   schema: {
-        //     default: "",
-        //   },
-        //   handle,
-        // });
-        
+        AFRAME.registerComponent(`marker${count}`, {
+          schema: {
+            default: "",
+          },
+          handle,
+        });
         count++;
 
        
       };
 
-// NECESSARY
+
   AFRAME.registerComponent("marker", {
     schema: {
       default: "",
-    }, stuff});
+    },
+    init() {
+      const sky = document.querySelector("a-sky");
+      var b = false;
+      this.el.addEventListener("click", () => {
+        document.getElementById("count").innerText = (
+          parseInt(document.getElementById("count").innerText) + 1
+        ).toString();
+        const marker = document.getElementById("marker");
+        const parent = marker.parentNode;
+        marker.parentNode.removeChild(marker);
+        const newc = document.createElement("a-sphere");
+        randomX = Math.random() * 10 - 5;
+        randomY = Math.random() * 10 - 5;
+        newc.setAttribute("color", "#EF2D5E");
+        newc.setAttribute("position", `${randomX} ${randomY} -3`);
+        newc.setAttribute("radius", "4.0");
+        newc.id = `marker`;
+        parent.appendChild(newc);
+        newc.addEventListener("click", stuff)
+        AFRAME.registerComponent(`marker${count}`, {
+          schema: {
+            default: "",
+          },
+          handle,
+        });
+        count++;
 
+        if (b) {
+          sky.setAttribute("src", "#entrance");
+        } else {
+          sky.setAttribute("src", "#study");
+        }
+        b = !b;
+        console.log("clicked");
+      });
+    },
+  });
 </script>
 
 <style>
