@@ -1,8 +1,9 @@
   var ballCount = 0;
-  var gameDone = false;
-  var score = 0;
   var timer;
+  var score = 0;
   var foundPlace = false;
+  var gameDone = false;
+  var scoreUpdated = false;
 
   function reachDestination() {
     const marker = document.getElementById("marker");
@@ -13,22 +14,26 @@
         document.getElementById("marker").setAttribute("visible", false);
         return;
       }
-      ballCount++;
 
+      ballCount++;
       document.getElementById("count").innerText = "Balls: " + ballCount.toString();
 
       const marker = document.getElementById("marker");
       const parent = marker.parentNode;
       marker.parentNode.removeChild(marker);
 
-      if (ballCount >= 10) {
+      if (!scoreUpdated && ballCount >= 15) {
         score = score + 100;
-        clearInterval(timer)
-        document.getElementById("score").innerText = "Score: " + score;
-        document.getElementById("timer").innerText = "Time: 00:00";
-        document.getElementById("tint").style.opacity = 0.5;
-        gameDone = true;
-        return;
+        scoreUpdated = true;
+        // clearInterval(timer);
+        // document.getElementById("score").innerText = "Score: " + score;
+        // document.getElementById("timer").innerText = "Time: 00:00";
+        // document.getElementById("tint").style.opacity = 0.5;
+        // gameDone = true;
+        // foundPlace = false;
+        // cnt = false;
+        // destCount++;
+        // return;
       }
 
       const newc = document.createElement("a-entity");
@@ -52,7 +57,6 @@
 
   let coordinateList = [];
   var firstDistance = 0;
-  // TODO: is this being set to true
   var cnt = false;
   const colorArray = [
     "#FF0000",
@@ -135,7 +139,6 @@
     if (i == 0 || i == 1) {
       ballCount = 0;
       document.getElementById("count").innerText = "Balls: " + ballCount.toString();
-      // sec = 20;
       document.getElementById("timer").innerText = "Time: 00:20";
 
       foundPlace = true;
@@ -158,9 +161,10 @@
           if (sec <= 0) {
             document.getElementById("tint").style.opacity = 0.5;
             document.getElementById("timer").innerText = "Time: 00:00";
+            document.getElementById("marker").setAttribute("visible", false);
             gameDone = true;
             foundPlace = false;
-            cnt = true;
+            cnt = false;
             destCount++;
             clearInterval(timer);
             main();
@@ -176,24 +180,20 @@
   function error() {
     console.log("Geolocation error!");
   }
-  function popupOverlay(message){
-    document.querySelector("canvas").hidden = true; 
-    document.querySelector("a-scene").hidden = true; 
+  function popupOverlay(message) {
+    document.querySelector("canvas").hidden = true;
     document.getElementById("overlay").hidden = false;
     document.getElementById("overlay-message").innerHTML = message;
   }
-  function removeOverlay(){
-    document.querySelector("canvas").hidden = false; 
-    document.querySelector("a-scene").hidden = false;
+function removeOverlay() {
+    document.querySelector("canvas").hidden = false;
     document.getElementById("overlay").hidden = true;
-    document.getElementById("overlay-message").innerHTML = "";
-    console.log("Removed!");
+    document.getElementById("overlay-message").innerHTML = message;
   }
 
   var destCount = 0;
   var targetLat = 0;
   var targetLong = 0;
-
 
   /**
    * Parses the given URL into latitude and longitude pairs 
