@@ -28,11 +28,6 @@
     -webkit-text-fill-color: transparent;
   }
 
-  .jumbotron button {
-    z-index: 10;
-    pointer-events:none;
-  }
-
   .gif {
     width: 10vw;
     height: 10vw;
