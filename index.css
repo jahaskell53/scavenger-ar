@@ -1,63 +1,76 @@
-  .overlay {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    text-align: center;
-    pointer-events: none;
-    background-image: url("./camping.webp");
-    background-size: cover;
-  }
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  pointer-events: none;
+  background-image: url("./camping.webp");
+  background-size: cover;
+}
 
-  .overlay-message {
-    margin-top: 25vh;
-    font-family: sans-serif;
-    color: black;
-    font-size: 10vmin;
-  }
+#title {
+  font-family: 'pixel';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: large;
+}
 
-  .jumbotron {
-    background-color:white;
-  }
+.overlay-message {
+  margin-top: 25vh;
+  font-family: sans-serif;
+  color: black;
+  font-size: 10vmin;
+}
 
-  .uiwrapper {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    text-align: center;
-    pointer-events: none;
-  }
+.jumbotron {
+  background-color: white;
+}
 
-  .uiblock {
-    font-family: sans-serif;
-    font-size: 4vmin;
-    width: 10em;
-    height: 1em;
-    display: inline-block;
-    color: #fff;
-    background-color: rgba(0, 0, 100, 0.5);
-    padding: 1em 2em;
-    margin-top: 60vh;
-  }
+@font-face {
+  font-family: pixel;
+  src: url("Minecraft.ttf");
+}
 
-  #tint {
-    width: 100vw !important;
-    height: 120vh !important;
-    margin-top: -20vh !important;
-    opacity: 0.5;
-  }
+.uiwrapper {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  pointer-events: none;
+}
 
-  #timer {
-    margin-top: 70vh !important;
-  }
+.uiblock {
+  font-family: sans-serif;
+  font-size: 4vmin;
+  width: 10em;
+  height: 1em;
+  display: inline-block;
+  color: #fff;
+  background-color: rgba(0, 0, 100, 0.5);
+  padding: 1em 2em;
+  margin-top: 60vh;
+}
 
-  #score {
-    margin-top: 80vh !important;
-  }
+#tint {
+  width: 100vw !important;
+  height: 120vh !important;
+  margin-top: -20vh !important;
+  opacity: 0.5;
+}
 
-  .as-console-wrapper {
-    display: none !important;
-  }
+#timer {
+  margin-top: 70vh !important;
+}
+
+#score {
+  margin-top: 80vh !important;
+}
+
+.as-console-wrapper {
+  display: none !important;
+}
