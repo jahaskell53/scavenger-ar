@@ -207,7 +207,9 @@
     }
     console.log(i);
     if (i == 0 || i == 1) {
-      document.getElementById("tint").setAttribute("visible", false);
+      document.getElementById("tint").setAttribute("visibility", false);
+      const tint = document.getElementById("tint")
+      // tint.parentNode.removeChild(tint);
       document.getElementById("marker").setAttribute("visible", true);
       help();
     }
