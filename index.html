@@ -89,174 +89,167 @@
 </body>
 
 <script defer type="text/javascript">
-      var count = 0;
-      var gameDone = false;
-      var score = 0;
-      var timer;
+  var count = 0;
+  var gameDone = false;
+  var score = 0;
+  var timer;
+  var foundPlace = false;
 
-    function clickItem() {
-      // document.getElementById("tint").setAttribute("visible", false);
-      function stuff() {
-        if(gameDone) {
-          return
-        }
-        count++;
+  function clickItem() {
+    // document.getElementById("tint").setAttribute("visible", false);
+    function stuff() {
+      if (gameDone) {
+        return;
+      }
+      count++;
 
-       
+      document.getElementById("count").innerText = count.toString();
 
-        document.getElementById("count").innerText = (
-          count
-        ).toString();
+      const marker = document.getElementById(`marker`);
+      const parent = marker.parentNode;
+      marker.parentNode.removeChild(marker);
 
-
-        const marker = document.getElementById(`marker`);
-        const parent = marker.parentNode;
-        marker.parentNode.removeChild(marker);
-
-        if (count >= 10) {
-          score = score + 100;
+      if (count >= 10) {
+        score = score + 100;
         document.getElementById("score").innerText = score;
         document.getElementById("timer").innerText = "00:00";
         clearInterval(timer);
-              // document.getElementById("tint").hidden = false;
+        // document.getElementById("tint").hidden = false;
         document.getElementById("tint").style.opacity = 0.1;
         gameDone = true;
-        }
-
-
-        const newc = document.createElement("a-sphere");
-        newc.setAttribute("color", "#EF2D5E");
-        randomX = Math.random() * 20 - 10;
-        randomY = Math.random() * 20 - 10;
-        newc.setAttribute("position", `${randomX} 4 ${randomY}`);
-        newc.setAttribute("radius", "2.0");
-        newc.id = `marker`;
-        parent.appendChild(newc);
-        newc.addEventListener("click", stuff);
-      }
-      const marker = document.getElementById(`marker`);
-      marker.addEventListener("click", stuff);
-    }
-
-    getLocation();
-
-    document.getElementById("tint").width = window.innerWidth;
-    document.getElementById("tint").height = window.innerHeight;
-    document.getElementById("tint").style.position = "absolute";
-
-    let coordinateList = [];
-    var firstDistance = 0;
-    var cnt = false;
-    const colorArray = [
-      "#FF0000",
-      "#FF0000",
-      "#990066",
-      "#660099",
-      "#3300CC",
-      "#0000FF",
-    ];
-
-    function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
-      var R = 6371;
-      var dLat = deg2rad(lat2 - lat1);
-      var dLon = deg2rad(lon2 - lon1);
-      var a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(lat1)) *
-          Math.cos(deg2rad(lat2)) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      var d = R * c * 1000;
-      return d;
-    }
-
-    function round(num, places) {
-      var multiplier = Math.pow(10, places);
-      return Math.round(num * multiplier) / multiplier;
-    }
-
-    function getAvg(nums) {
-      const total = nums.reduce((acc, c) => acc + c, 0);
-      return total / nums.length;
-    }
-
-    function deg2rad(deg) {
-      return deg * (Math.PI / 180);
-    }
-
-    function getLocation() {
-      if (!navigator.geolocation) {
-        console.log("Geolocation API not supported by this browser.");
-      } else {
-        console.log("Checking location...");
-        navigator.geolocation.getCurrentPosition(success, error);
-      }
-      setTimeout(getLocation, 1000);
-    }
-
-    var foundPlace = false;
-
-    function success(position) {
-      if(foundPlace) {
-        return;
-      }
-      let lat = round(position.coords.latitude, 4);
-      let long = round(position.coords.longitude, 4);
-      let distance = round(
-        getDistanceFromLatLonInM(lat, long, 41.82625, -71.401897),
-        2
-      );
-
-      if (!cnt) {
-        firstDistance = distance;
-        cnt = true;
       }
 
-      if (coordinateList.length < 3) {
-        coordinateList.push(distance);
-      } else {
-        coordinateList.shift();
-        coordinateList.push(distance);
-      }
+      const newc = document.createElement("a-sphere");
+      newc.setAttribute("color", "#EF2D5E");
+      randomX = Math.random() * 20 - 10;
+      randomY = Math.random() * 20 - 10;
+      newc.setAttribute("position", `${randomX} 4 ${randomY}`);
+      newc.setAttribute("radius", "2.0");
+      newc.id = `marker`;
+      parent.appendChild(newc);
+      newc.addEventListener("click", stuff);
+    }
+    const marker = document.getElementById(`marker`);
+    marker.addEventListener("click", stuff);
+  }
 
-      let averageDistance = getAvg(coordinateList);
+  getLocation();
 
-      i = Math.floor((averageDistance / firstDistance) * 4);
-      if (i >= 6) {
-        i = 5;
-      }
-      console.log(i);
-      if (i == 0 || i == 1) {
-        foundPlace = true;
-        document.getElementById("tint").style.opacity = 0;
-        console.log("opacity changed");
-        document.getElementById("marker").setAttribute("visible", true);
+  document.getElementById("tint").width = window.innerWidth;
+  document.getElementById("tint").height = window.innerHeight;
+  document.getElementById("tint").style.position = "absolute";
 
-        function timer(){
-      var sec = 20;
-      timer = setInterval(function(){
-          document.getElementById('timer').innerHTML='00:'+sec;
+  let coordinateList = [];
+  var firstDistance = 0;
+  var cnt = false;
+  const colorArray = [
+    "#FF0000",
+    "#FF0000",
+    "#990066",
+    "#660099",
+    "#3300CC",
+    "#0000FF",
+  ];
+
+  function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
+    var R = 6371;
+    var dLat = deg2rad(lat2 - lat1);
+    var dLon = deg2rad(lon2 - lon1);
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c * 1000;
+    return d;
+  }
+
+  function round(num, places) {
+    var multiplier = Math.pow(10, places);
+    return Math.round(num * multiplier) / multiplier;
+  }
+
+  function getAvg(nums) {
+    const total = nums.reduce((acc, c) => acc + c, 0);
+    return total / nums.length;
+  }
+
+  function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+  }
+
+  function getLocation() {
+    if (!navigator.geolocation) {
+      console.log("Geolocation API not supported by this browser.");
+    } else {
+      console.log("Checking location...");
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+    setTimeout(getLocation, 1000);
+  }
+
+  function success(position) {
+    if (foundPlace) {
+      return;
+    }
+    let lat = round(position.coords.latitude, 4);
+    let long = round(position.coords.longitude, 4);
+    let distance = round(
+      getDistanceFromLatLonInM(lat, long, 41.82625, -71.401897),
+      2
+    );
+
+    if (!cnt) {
+      firstDistance = distance;
+      cnt = true;
+    }
+
+    if (coordinateList.length < 3) {
+      coordinateList.push(distance);
+    } else {
+      coordinateList.shift();
+      coordinateList.push(distance);
+    }
+
+    let averageDistance = getAvg(coordinateList);
+
+    i = Math.floor((averageDistance / firstDistance) * 4);
+    if (i >= 6) {
+      i = 5;
+    }
+    console.log(i);
+    if (i == 0 || i == 1) {
+      foundPlace = true;
+      document.getElementById("tint").style.opacity = 0;
+      console.log("opacity changed");
+      document.getElementById("marker").setAttribute("visible", true);
+
+      function timer() {
+        var sec = 20;
+        timer = setInterval(function () {
+          document.getElementById("timer").innerHTML = "00:" + sec;
           sec--;
           console.log("timer");
 
           if (sec < 0) {
             // document.getElementById("tint").hidden = false;
-        document.getElementById("tint").style.opacity = 0.5;
-        document.getElementById("timer").innerText = "00:00";
-              clearInterval(timer);
-              gameDone = true;
+            document.getElementById("tint").style.opacity = 0.5;
+            document.getElementById("timer").innerText = "00:00";
+            clearInterval(timer);
+            gameDone = true;
           }
-      }, 1000);
+        }, 1000);
+      }
+
+      timer();
+      clickItem();
+    }
+    document.getElementById("tint").style.backgroundColor = colorArray[i];
   }
 
-  timer();
-        clickItem();
-      }
-      document.getElementById("tint").style.backgroundColor = colorArray[i];
-    }
-
-    function error() {
-      console.log("Geolocation error!");
-    }
+  function error() {
+    console.log("Geolocation error!");
+  }
 </script>
