@@ -225,7 +225,12 @@
       function timer() {
         var sec = 20;
         timer = setInterval(function () {
-          document.getElementById("timer").innerHTML = "00:" + sec;
+          if (sec < 10) {
+            document.getElementById("timer").innerHTML = "00:0" + sec;
+          } else {
+            document.getElementById("timer").innerHTML = "00:" + sec;
+
+          }
           sec--;
           console.log("timer");
 
