@@ -250,6 +250,8 @@
       return deg * (Math.PI / 180)
   }
 
+  var f = false;
+
   function getLocation() {
       if (!navigator.geolocation) {
           console.log('Geolocation API not supported by this browser.');
@@ -261,6 +263,9 @@
   }
 
   function success(position) {
+    if(f) {
+      return;
+    }
       let lat = round(position.coords.latitude, 4);
       let long = round(position.coords.longitude, 4);
       let distance = round(getDistanceFromLatLonInM(lat, long, 41.826250, -71.401897), 2);
@@ -299,6 +304,7 @@
         document.getElementById("tint").setAttribute("visible", false);
         tint.parentNode.removeChild(tint);
         document.getElementById("marker").setAttribute("visible", true);
+        f = true;
         help();
       }
       document.getElementById("tint").style.backgroundColor = colorArray[i];
