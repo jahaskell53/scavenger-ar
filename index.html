@@ -216,13 +216,11 @@
     console.log("Geolocation error!");
   }
   function popupOverlay(message) {
-    document.querySelector("canvas").hidden = true;
     document.querySelector("canvas").style.opacity = 0;
     document.getElementById("overlay").hidden = false;
     document.getElementById("overlay-message").innerHTML = message;
   }
 function removeOverlay() {
-    document.querySelector("canvas").hidden = false;
     document.querySelector("canvas").style.opacity = 100;
     document.getElementById("overlay").hidden = true;
     document.getElementById("overlay-message").innerHTML = "";
@@ -264,8 +262,8 @@ function removeOverlay() {
     }
     else if (!showOnce){
         showOnce = true;
-        //setTimeout(removeOverlay, 5000);
-        //popupOverlay("Welcome and prepare to explore! This is a fully customized scavenger hunt game. The color of your screen will indicate how warm or cold you are to the next bonfire! Stay warm and play the minigames when you arrive to your destinations! Create hunts too and share with your friends");
+        setTimeout(removeOverlay, 5000);
+        popupOverlay("Welcome and prepare to explore! This is a fully customized scavenger hunt game. The color of your screen will indicate how warm or cold you are to the next bonfire! Stay warm and play the minigames when you arrive to your destinations! Create hunts too and share with your friends");
     }
     var entities = parseURL(window.location.search);
     var numPoints = entities.length;
