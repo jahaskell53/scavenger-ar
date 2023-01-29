@@ -58,8 +58,6 @@
   </a-assets>
   <a-entity id="marker" gltf-model="#robot" visible="false" position="-5 3 -3"></a-entity>
     <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
-    <!-- <a-sphere href="http://google.com" id="marker" visible="false" position="-5 3 -3" radius="04.0" color="#EF2D5E"
-      marker></a-sphere> -->
   </a-scene>
 
   <script type="text/javascript"
@@ -88,6 +86,7 @@
 
     function miniGame() {
       if (gameDone) {
+        document.getElementById("marker").setAttribute("visible", false);
         return;
       }
       ballCount++;
@@ -103,17 +102,15 @@
         document.getElementById("score").innerText = score;
         document.getElementById("timer").innerText = "00:00";
         clearInterval(timer);
-        document.getElementById("tint").style.opacity = 0.1;
+        document.getElementById("tint").style.opacity = 0.5;
         gameDone = true;
         return;
       }
 
       const newc = document.createElement("a-entity");
-      // <a-entity id="marker" gltf-model="#robot" visible="false" position="-5 3 -3"></a-entity>
-      // newc.setAttribute("color", "#EF2D5E");
       randomX = Math.random() * 20 - 10;
-      randomZ = Math.random() * 20 - 10;
       randomY = Math.random() * 20 - 10;
+      randomZ = Math.random() * 20 - 10;
       newc.setAttribute("position", `${randomX} ${randomY} ${randomZ}`);
       // newc.setAttribute("radius", "2.0");
       newc.setAttribute("gltf-model", "#robot");
@@ -188,10 +185,10 @@
     let lat = round(position.coords.latitude, 4);
     let long = round(position.coords.longitude, 4);
     let distance = round(
-      getDistanceFromLatLonInM(lat, long, 41.82625, -71.401897),
+      getDistanceFromLatLonInM(lat, long, targetLat, targetLong),
       2
     );
-
+    console.log('SUCCESS TARGET LAT', targetLat, targetLong);
     if (!cnt) {
       firstDistance = distance;
       cnt = true;
@@ -235,6 +232,10 @@
             document.getElementById("timer").innerText = "00:00";
             clearInterval(timer);
             gameDone = true;
+            foundPlace = false;
+            destCount++;
+
+            main();
           }
         }, 1000);
       }
@@ -248,4 +249,52 @@
   function error() {
     console.log("Geolocation error!");
   }
+
+  var destCount = 0;
+    var targetLat = 0;
+    var targetLong = 0;
+
+
+  /**
+   * Parses the given URL into latitude and longitude pairs 
+   * @param {String} url the url formatted as .../?entities=lat_lon,lat_lon,...,lat_lon 
+   * @return {List[Dictionary]} a list of {'lat': lat, 'lon', lon} pairs 
+   * 
+   * For example:
+   *  http://.../?entities=41.826835_-71.399710,41.827835_-71.399710
+   *  becomes [{'lat': 41.826835, 'lon': -71.399710}, {'lat': 41.827835, 'lon': -71.399710}]
+   */
+  function parseURL(url){
+      let entities = [];
+      var entities_url = url.split("=")[1];
+      var lat_lon_list = entities_url.split(",");
+      for (const lat_lon_str of lat_lon_list){
+          lat_lon = lat_lon_str.split('_');
+          lat = parseFloat(lat_lon[0]);
+          lon = parseFloat(lat_lon[1]);
+          console.log(`(${lat}, ${lon})`);
+          entities.push({'lat': lat, 'lon': lon});
+      }
+      return entities;
+  }
+
+    function main() {
+      console.log("hits main");
+      // RUN GAME BEGINNING SCRIPT
+      var entities = parseURL(window.location.search);
+      var numPoints = entities.length;
+  
+      if(destCount < numPoints) {
+        console.log("destCount", destCount);
+        getLocation();
+        targetLat = entities[destCount].lat;
+        targetLong = entities[destCount].lon;
+        console.log("destCount if statement");
+      }
+      else if (destCount === numPoints) {
+      // RUN GAME END SCRIPT
+      alert("GAME OVER");
+      }
+    }
+    main();
 </script>
