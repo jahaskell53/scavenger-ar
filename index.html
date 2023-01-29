@@ -92,6 +92,7 @@
 <script defer type="text/javascript">
       var count = 0;
       var gameDone = false;
+      var score = 0;
 
     function help() {
       // document.getElementById("tint").setAttribute("visible", false);
@@ -113,7 +114,9 @@
         marker.parentNode.removeChild(marker);
 
         if (count >= 10) {
-        document.getElementById("score").innerText = parseInt(document.getElementById("score")) + 100;
+          score = score + 100;
+        document.getElementById("score").innerText = score;
+        
               // document.getElementById("tint").hidden = false;
         document.getElementById("tint").style.opacity = 0.1;
         gameDone = true;
@@ -239,6 +242,7 @@
           if (sec < 0 || gameDone) {
             // document.getElementById("tint").hidden = false;
         document.getElementById("tint").style.opacity = 0.5;
+        document.getElementById("timer").innerText = "00:00";
               clearInterval(timer);
               gameDone = true;
           }
