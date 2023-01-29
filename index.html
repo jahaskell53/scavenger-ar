@@ -64,7 +64,7 @@
   <h1 id="timer" class="uiblock uiwrapper">Time: 00:20</h1>
   <h1 id="score" class="uiblock uiwrapper">Score: 0</h1>
   <div id="tint" class="uiblock uiwrapper"></div>
-  <div hidden id="overlay" class="uiblock uiwrapper">
+  <div hidden id="overlay" class="uiwrapper">
     <div class="container">
       <div class="row">
         <img style="width: 100vw" src="camping.webp">
@@ -251,7 +251,8 @@
   function error() {
     console.log("Geolocation error!");
   }
-  function setOverlayMessage(message){
+  function popupOverlay(message){
+    document.getElementById("overlay").removeAttribute("hidden"); ;
     document.getElementById("overlay-message").innerHTML = message;
   }
 
@@ -286,8 +287,7 @@
   function main() {
     if (window.location.search == ''){
       console.log("Nothing here!");
-      document.getElementById("overlay").style.visibility = 'visible';
-      setOverlayMessage("Nothing here! Maybe try another link.")
+      popupOverlay("Nothing here! Maybe try another link.");
       return;
     }
     var entities = parseURL(window.location.search);
@@ -299,8 +299,7 @@
       targetLong = entities[destCount].lon;
     }
     else if (destCount === numPoints) {
-      document.getElementById("overlay").style.visibility = 'visible';
-      setOverlayMessage("Congratulations you beat the game! Share the link with your friends! Hope you enjoyed :)")
+      popupOverlay("Congratulations you beat the game! Share the link with your friends! Hope you enjoyed");
       alert("GAME OVER");
     }
   }
