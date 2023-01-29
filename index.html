@@ -216,6 +216,11 @@
     }
     console.log(i);
     if (i == 0 || i == 1) {
+      ballCount = 0;
+      document.getElementById("count").innerText = "Balls: " + ballCount.toString();
+      sec = 20;
+      document.getElementById("timer").innerText = "Time: 00:20";
+
       foundPlace = true;
       document.getElementById("tint").style.opacity = 0;
       console.log("opacity changed");
@@ -224,6 +229,9 @@
       function timer() {
         var sec = 20;
         timer = setInterval(function () {
+          if (gameDone) {
+            return
+          }
           if (sec < 10) {
             document.getElementById("timer").innerHTML = "Time: 00:0" + sec;
           } else {
@@ -231,7 +239,7 @@
           }
           sec--;
           // TODO: why?
-          if (sec < 0 || gameDone) {
+          if (sec <= 0) {
             document.getElementById("tint").style.opacity = 0.5;
             document.getElementById("timer").innerText = "Time: 00:00";
             clearInterval(timer);
