@@ -65,9 +65,9 @@
   <script type="text/javascript"
     src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
-  <h1 id="count" class="uiblock uiwrapper">0</h1>
-  <h1 id="timer" class="uiblock uiwrapper">00:20</h1>
-  <h1 id="score" class="uiblock uiwrapper">0</h1>
+  <h1 id="count" class="uiblock uiwrapper">Balls: 0</h1>
+  <h1 id="timer" class="uiblock uiwrapper">Time: 00:20</h1>
+  <h1 id="score" class="uiblock uiwrapper">Score: 0</h1>
   <div id="tint" class="uiblock uiwrapper"></div>
 
 </body>
@@ -91,7 +91,7 @@
       }
       ballCount++;
 
-      document.getElementById("count").innerText = ballCount.toString();
+      document.getElementById("count").innerText = "Balls: " + ballCount.toString();
 
       const marker = document.getElementById(`marker`);
       const parent = marker.parentNode;
@@ -99,8 +99,8 @@
 
       if (ballCount >= 10) {
         score = score + 100;
-        document.getElementById("score").innerText = score;
-        document.getElementById("timer").innerText = "00:00";
+        document.getElementById("score").innerText = "Score: " + score;
+        document.getElementById("timer").innerText = "Time: " + "00:00";
         clearInterval(timer);
         document.getElementById("tint").style.opacity = 0.5;
         gameDone = true;
@@ -229,7 +229,7 @@
           if (sec < 0 || gameDone) {
             // document.getElementById("tint").hidden = false;
             document.getElementById("tint").style.opacity = 0.5;
-            document.getElementById("timer").innerText = "00:00";
+            document.getElementById("timer").innerText = "Time: 00:00";
             clearInterval(timer);
             gameDone = true;
             foundPlace = false;
