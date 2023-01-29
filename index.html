@@ -61,12 +61,10 @@
 
   </a-assets>
 
-  <a-entity 
-      id="glbtest"
-      glb-model="https://github.com/jahaskell53/ar-test/raw/main/campfire.glb"
-      scale="0.2 0.2 0.2"
-      position="0 1 -2">
-  </a-entity>
+  <a-assets>
+    <a-asset-items id="robot" src="campfire.glb"> </a-asset-items>
+  </a-assets>
+  <a-entity id="marker" gltf-model="#robot" visible="false" position="-5 3 -3"></a-entity>
 
     <a-entity
       cursor="fuse: true; fuseTimeout: 500"
@@ -76,8 +74,8 @@
     >
     </a-entity>
     <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
-    <a-sphere href="http://google.com" id="marker" visible="false" position="-5 3 -3" radius="04.0" color="#EF2D5E"
-      marker></a-sphere>
+    <!-- <a-sphere href="http://google.com" id="marker" visible="false" position="-5 3 -3" radius="04.0" color="#EF2D5E"
+      marker></a-sphere> -->
   </a-scene>
 
   <script type="text/javascript"
