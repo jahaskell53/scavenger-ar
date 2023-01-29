@@ -99,10 +99,10 @@
 <script defer type="text/javascript">
   function help() {
     var count = 0;
-    document.getElementById("tint").setAttribute("visible", false);
+    // document.getElementById("tint").setAttribute("visible", false);
     function stuff() {
       document.getElementById("count").innerText = (
-        parseInt(document.getElementById("count").innerText) + 1
+        count + 1
       ).toString();
       const marker = document.getElementById(`marker`);
       const parent = marker.parentNode;
