@@ -1,5 +1,5 @@
 <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-<!-- <main></main> -->
+
 <style>
   .uiwrapper {
     width: 100vw;
@@ -73,18 +73,14 @@
     type="text/javascript"
     src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"
   ></script>
-
   <script
     type="text/javascript"
     src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"
   ></script>
 
   <h1 id="count" class="uiblock uiwrapper">0</h1>
-
   <h1 id="timer" class="uiblock uiwrapper">00:20</h1>
-
   <h1 id="score" class="uiblock uiwrapper">0</h1>
-
   <div id="tint" class="uiblock uiwrapper"></div>
 </body>
 
@@ -95,9 +91,11 @@
   var timer;
   var foundPlace = false;
 
-  function clickItem() {
-    // document.getElementById("tint").setAttribute("visible", false);
-    function stuff() {
+  function reachDestination() {
+    const marker = document.getElementById(`marker`);
+    marker.addEventListener("click", miniGame);
+
+    function miniGame() {
       if (gameDone) {
         return;
       }
@@ -114,7 +112,6 @@
         document.getElementById("score").innerText = score;
         document.getElementById("timer").innerText = "00:00";
         clearInterval(timer);
-        // document.getElementById("tint").hidden = false;
         document.getElementById("tint").style.opacity = 0.1;
         gameDone = true;
       }
@@ -127,10 +124,9 @@
       newc.setAttribute("radius", "2.0");
       newc.id = `marker`;
       parent.appendChild(newc);
-      newc.addEventListener("click", stuff);
+
+      newc.addEventListener("click", miniGame);
     }
-    const marker = document.getElementById(`marker`);
-    marker.addEventListener("click", stuff);
   }
 
   getLocation();
@@ -244,7 +240,7 @@
       }
 
       timer();
-      clickItem();
+      reachDestination();
     }
     document.getElementById("tint").style.backgroundColor = colorArray[i];
   }
