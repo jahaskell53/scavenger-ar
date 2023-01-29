@@ -40,6 +40,9 @@
 
   #audio-2 {
     margin-top: 50vh !important;
+    width: 60vw;
+    height: 10vh;
+    z-index: 10;
   }
 
   .as-console-wrapper {
@@ -88,6 +91,8 @@
 </body>
 
 <script defer type="text/javascript">
+
+  document.getElementById("audio-2").play();
   document.getElementById("audio").components.sound.playSound();
   var ballCount = 0;
   var gameDone = false;
