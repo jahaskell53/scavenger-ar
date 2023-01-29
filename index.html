@@ -101,19 +101,25 @@
         }
         count++;
 
-        if (count >= 10) {
-        document.getElementById("score") = parseInt(document.getElementById("score")) + 100;
-              // document.getElementById("tint").hidden = false;
-        document.getElementById("tint").style.opacity = 0.5;
-        gameDone = true;
-        }
+       
 
         document.getElementById("count").innerText = (
           count
         ).toString();
+
+
         const marker = document.getElementById(`marker`);
         const parent = marker.parentNode;
         marker.parentNode.removeChild(marker);
+
+        if (count >= 10) {
+        document.getElementById("score").innerText = parseInt(document.getElementById("score")) + 100;
+              // document.getElementById("tint").hidden = false;
+        document.getElementById("tint").style.opacity = 0.1;
+        gameDone = true;
+        }
+
+
         const newc = document.createElement("a-sphere");
         newc.setAttribute("color", "#EF2D5E");
         randomX = Math.random() * 20 - 10;
