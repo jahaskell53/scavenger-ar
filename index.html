@@ -41,6 +41,7 @@
   var score = 0;
   var timer;
   var foundPlace = false;
+  var scoreUpdated = false;
 
   function reachDestination() {
     const marker = document.getElementById("marker");
@@ -59,14 +60,15 @@
       const parent = marker.parentNode;
       marker.parentNode.removeChild(marker);
 
-      if (ballCount >= 10) {
+      if (!scoreUpdated && ballCount >= 10) {
         score = score + 100;
-        clearInterval(timer)
-        document.getElementById("score").innerText = "Score: " + score;
-        document.getElementById("timer").innerText = "Time: 00:00";
-        document.getElementById("tint").style.opacity = 0.5;
-        gameDone = true;
-        foundPlace = false;
+        scoreUpdated = true;
+        // clearInterval(timer)
+        // document.getElementById("score").innerText = "Score: " + score;
+        // document.getElementById("timer").innerText = "Time: 00:00";
+        // document.getElementById("tint").style.opacity = 0.5;
+        // gameDone = true;
+        // foundPlace = false;
         return;
       }
 
