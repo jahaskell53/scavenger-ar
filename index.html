@@ -62,14 +62,6 @@
     <a-asset-items id="robot" src="campfire/campfire.gltf"> </a-asset-items>
   </a-assets>
   <a-entity id="marker" gltf-model="#robot" visible="false" position="-5 3 -3"></a-entity>
-  <a-sound id="audio" src="src: url(audio.mp3)" position="0 2 5"></a-sound>
-    <a-entity
-      cursor="fuse: true; fuseTimeout: 500"
-      position="0 0 -1"
-      geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-      material="color: black; shader: flat"
-    >
-    </a-entity>
     <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
     <!-- <a-sphere href="http://google.com" id="marker" visible="false" position="-5 3 -3" radius="04.0" color="#EF2D5E"
       marker></a-sphere> -->
@@ -84,16 +76,11 @@
   <h1 id="timer" class="uiblock uiwrapper">00:20</h1>
   <h1 id="score" class="uiblock uiwrapper">0</h1>
   <div id="tint" class="uiblock uiwrapper"></div>
-  <audio id="audio-2" controls class="uiblock uiwrapper">
-    <source src="audio.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-  </audio>
+
 </body>
 
 <script defer type="text/javascript">
 
-  document.getElementById("audio-2").play();
-  document.getElementById("audio").components.sound.playSound();
   var ballCount = 0;
   var gameDone = false;
   var score = 0;
