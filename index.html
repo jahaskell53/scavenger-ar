@@ -38,25 +38,19 @@
     margin-top: 80vh !important;
   }
 
-
-
   .as-console-wrapper {
     display: none !important;
   }
 </style>
 
 <body>
-  <a-scene
-    cursor="rayOrigin:mouse"
-    vr-mode-ui="enabled: false"
-    arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
-    renderer="antialias: true; alpha: true"
-  >
+  <a-scene cursor="rayOrigin:mouse" vr-mode-ui="enabled: false"
+    arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false" renderer="antialias: true; alpha: true">
 
-  <a-assets>
-    <a-asset-items id="robot" src="campfire/campfire.gltf"> </a-asset-items>
-  </a-assets>
-  <a-entity id="marker" gltf-model="#robot" visible="false" position="-5 3 -3"></a-entity>
+    <a-assets>
+      <a-asset-items id="robot" src="campfire/campfire.gltf"></a-asset-items>
+    </a-assets>
+    <a-entity id="marker" gltf-model="#robot" visible="false" position="-5 3 -3"></a-entity>
     <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
   </a-scene>
 
@@ -69,11 +63,9 @@
   <h1 id="timer" class="uiblock uiwrapper">Time: 00:20</h1>
   <h1 id="score" class="uiblock uiwrapper">Score: 0</h1>
   <div id="tint" class="uiblock uiwrapper"></div>
-
 </body>
 
 <script defer type="text/javascript">
-
   var ballCount = 0;
   var gameDone = false;
   var score = 0;
@@ -81,7 +73,7 @@
   var foundPlace = false;
 
   function reachDestination() {
-    const marker = document.getElementById(`marker`);
+    const marker = document.getElementById("marker");
     marker.addEventListener("click", miniGame);
 
     function miniGame() {
@@ -93,7 +85,7 @@
 
       document.getElementById("count").innerText = "Balls: " + ballCount.toString();
 
-      const marker = document.getElementById(`marker`);
+      const marker = document.getElementById("marker");
       const parent = marker.parentNode;
       marker.parentNode.removeChild(marker);
 
@@ -251,8 +243,8 @@
   }
 
   var destCount = 0;
-    var targetLat = 0;
-    var targetLong = 0;
+  var targetLat = 0;
+  var targetLong = 0;
 
 
   /**
@@ -264,37 +256,37 @@
    *  http://.../?entities=41.826835_-71.399710,41.827835_-71.399710
    *  becomes [{'lat': 41.826835, 'lon': -71.399710}, {'lat': 41.827835, 'lon': -71.399710}]
    */
-  function parseURL(url){
-      let entities = [];
-      var entities_url = url.split("=")[1];
-      var lat_lon_list = entities_url.split(",");
-      for (const lat_lon_str of lat_lon_list){
-          lat_lon = lat_lon_str.split('_');
-          lat = parseFloat(lat_lon[0]);
-          lon = parseFloat(lat_lon[1]);
-          console.log(`(${lat}, ${lon})`);
-          entities.push({'lat': lat, 'lon': lon});
-      }
-      return entities;
+  function parseURL(url) {
+    let entities = [];
+    var entities_url = url.split("=")[1];
+    var lat_lon_list = entities_url.split(",");
+    for (const lat_lon_str of lat_lon_list) {
+      lat_lon = lat_lon_str.split('_');
+      lat = parseFloat(lat_lon[0]);
+      lon = parseFloat(lat_lon[1]);
+      console.log(`(${lat}, ${lon})`);
+      entities.push({ 'lat': lat, 'lon': lon });
+    }
+    return entities;
   }
 
-    function main() {
-      console.log("hits main");
-      // RUN GAME BEGINNING SCRIPT
-      var entities = parseURL(window.location.search);
-      var numPoints = entities.length;
-  
-      if(destCount < numPoints) {
-        console.log("destCount", destCount);
-        getLocation();
-        targetLat = entities[destCount].lat;
-        targetLong = entities[destCount].lon;
-        console.log("destCount if statement");
-      }
-      else if (destCount === numPoints) {
+  function main() {
+    console.log("hits main");
+    // RUN GAME BEGINNING SCRIPT
+    var entities = parseURL(window.location.search);
+    var numPoints = entities.length;
+
+    if (destCount < numPoints) {
+      console.log("destCount", destCount);
+      getLocation();
+      targetLat = entities[destCount].lat;
+      targetLong = entities[destCount].lon;
+      console.log("destCount if statement");
+    }
+    else if (destCount === numPoints) {
       // RUN GAME END SCRIPT
       alert("GAME OVER");
-      }
     }
-    main();
+  }
+  main();
 </script>
