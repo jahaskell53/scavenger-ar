@@ -102,8 +102,10 @@
   function help() {
     // document.getElementById("tint").setAttribute("visible", false);
     function stuff() {
+      count++;
+
       document.getElementById("count").innerText = (
-        count + 1
+        count
       ).toString();
       const marker = document.getElementById(`marker`);
       const parent = marker.parentNode;
@@ -117,7 +119,6 @@
       newc.id = `marker`;
       parent.appendChild(newc);
       newc.addEventListener("click", stuff);
-      count++;
     }
     const marker = document.getElementById(`marker`);
     marker.addEventListener("click", stuff);
@@ -180,7 +181,12 @@
     setTimeout(getLocation, 1000);
   }
 
+  var foundPlace = false;
+
   function success(position) {
+    if(foundPlace) {
+      return;
+    }
     let lat = round(position.coords.latitude, 4);
     let long = round(position.coords.longitude, 4);
     let distance = round(
@@ -208,6 +214,7 @@
     }
     console.log(i);
     if (i == 0 || i == 1 || i == 4 || i == 3) {
+      foundPlace = true;
       document.getElementById("tint").style.opacity = 0;
       console.log("opacity changed");
       document.getElementById("marker").setAttribute("visible", true);
