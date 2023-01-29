@@ -1,71 +1,71 @@
 <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 <!-- <main></main> -->
 <style>
-      .uiwrapper {
-          width: 100vw;
-          height: 100vh;
-          position: absolute;
-          top: 0;
-          left: 0;
-          text-align: center;
-          pointer-events: none;
-      }
+         .uiwrapper {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  pointer-events: none;
+   }
 
-      .uiblock {
-          font-family: sans-serif;
-          font-size: 4vmin;
-          width: 10em;
-          height: 1em;
-          display: inline-block;
-          color: #fff;
-          background-color: rgba(0, 0, 100, 0.5);
-          padding: 1em 2em;
-          margin-top: 20vh;
-      }
+   .uiblock {
+  font-family: sans-serif;
+  font-size: 4vmin;
+  width: 10em;
+  height: 1em;
+  display: inline-block;
+  color: #fff;
+  background-color: rgba(0, 0, 100, 0.5);
+  padding: 1em 2em;
+  margin-top: 20vh;
+   }
 
-      #tint {
-          width: 100vw !important;
-          height: 120vh !important;
-          margin-top: -20vh !important;
-          opacity: 0.5;
-      }
+   #tint {
+  width: 100vw !important;
+  height: 120vh !important;
+  margin-top: -20vh !important;
+  opacity: 0.5;
+  }
 
-      #timer {
-          margin-top: 30vh !important;
-      }
+  #timer {
+  margin-top: 30vh !important;
+   }
 
-      #score {
-          margin-top: 40vh !important;
-      }
+   #score {
+  margin-top: 40vh !important;
+   }
 
-      .as-console-wrapper {
-          display: none !important;
-      }
+   .as-console-wrapper {
+  display: none !important;
+   }
 </style>
 
 <body>
-      <a-scene
+ <a-scene
     cursor="rayOrigin:mouse"
     vr-mode-ui="enabled: false"
     arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
     renderer="antialias: true; alpha: true"
   >
-            <a-sound
+  <a-sound
       id="sound"
       src="sound.mp3"
       loop="true"
       position="0 2 5"
     ></a-sound>
-            <a-entity
+  <a-entity
       cursor="fuse: true; fuseTimeout: 500"
       position="0 0 -1"
       geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
       material="color: black; shader: flat"
     >
-              </a-entity
+    </a-entity
     >
-            <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
-            <a-sphere
+   <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
+  <a-sphere
       href="http://google.com"
       id="marker"
       visible="false"
@@ -74,25 +74,25 @@
       color="#EF2D5E"
       marker
     ></a-sphere>
-        </a-scene
+  </a-scene
   >
-      
+
   <script
     type="text/javascript"
     src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"
   ></script>
-      
+
   <script
     type="text/javascript"
     src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"
   ></script>
-      
+
   <h1 id="count" class="uiblock uiwrapper">0</h1>
-      
+
   <h1 id="timer" class="uiblock uiwrapper">00:30</h1>
-      
+
   <h1 id="score" class="uiblock uiwrapper">0</h1>
-      
+
   <div id="tint" class="uiblock uiwrapper"></div>
 </body>
 
