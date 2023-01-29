@@ -51,6 +51,13 @@
         newc.id = `marker`;
         parent.appendChild(newc);
         newc.addEventListener("click", stuff)
+        // AFRAME.registerComponent(`marker${count}`, {
+        //   schema: {
+        //     default: "",
+        //   },
+        //   handle,
+        // });
+        
         count++;
 
        
@@ -80,13 +87,12 @@
         newc.id = `marker`;
         parent.appendChild(newc);
         newc.addEventListener("click", stuff)
-        // AFRAME.registerComponent(`marker${count}`, {
-        //   schema: {
-        //     default: "",
-        //   },
-        //   handle,
-        // });
-        
+        AFRAME.registerComponent(`marker${count}`, {
+          schema: {
+            default: "",
+          },
+          handle,
+        });
         count++;
 
         if (b) {
