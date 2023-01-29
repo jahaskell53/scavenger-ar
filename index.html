@@ -63,6 +63,16 @@
   <h1 id="timer" class="uiblock uiwrapper">Time: 00:20</h1>
   <h1 id="score" class="uiblock uiwrapper">Score: 0</h1>
   <div id="tint" class="uiblock uiwrapper"></div>
+  <div hidden id="overlay" class="uiblock uiwrapper">
+    <div class="container">
+      <div class="row">
+        <img style="width: 100vw" src="camping.webp">
+      </div>
+      <div class="row">
+        <h1 id="overlay-message">Nothing here! Maybe try another link.</h1> 
+      </div>
+    </div>
+  </div>
 </body>
 
 <script defer type="text/javascript">
@@ -237,6 +247,9 @@
   function error() {
     console.log("Geolocation error!");
   }
+  function setOverlayMessage(message){
+    document.getElementById("overlay-message").innerHTML = message;
+  }
 
   var destCount = 0;
   var targetLat = 0;
@@ -270,6 +283,13 @@
     console.log("hits main");
     var entities = parseURL(window.location.search);
     var numPoints = entities.length;
+
+    // if no entities, then we should display an error screen
+    if (entities.length <= 0){
+      document.getElementById("overlay").style.visibility = 'visible';
+      setOverlayMessage("Nothing here! Maybe try another link.")
+    }
+
     if (destCount < numPoints) {
       console.log("destCount", destCount);
       getLocation();
@@ -277,6 +297,8 @@
       targetLong = entities[destCount].lon;
     }
     else if (destCount === numPoints) {
+      document.getElementById("overlay").style.visibility = 'visible';
+      setOverlayMessage("Congratulations you beat the game! Share the link with your friends! Hope you enjoyed")
       alert("GAME OVER");
     }
   }
