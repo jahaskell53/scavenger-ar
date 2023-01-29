@@ -218,7 +218,6 @@
     if (i == 0 || i == 1) {
       foundPlace = true;
       document.getElementById("tint").style.opacity = 0;
-      console.log("opacity changed");
       document.getElementById("marker").setAttribute("visible", true);
 
       function timer() {
@@ -285,7 +284,6 @@
   }
 
   function main() {
-    console.log("hits main");
     if (window.location.search == ''){
       console.log("Nothing here!");
       document.getElementById("overlay").style.visibility = 'visible';
@@ -302,7 +300,7 @@
     }
     else if (destCount === numPoints) {
       document.getElementById("overlay").style.visibility = 'visible';
-      setOverlayMessage("Congratulations you beat the game! Share the link with your friends! Hope you enjoyed")
+      setOverlayMessage("Congratulations you beat the game! Share the link with your friends! Hope you enjoyed :)")
       alert("GAME OVER");
     }
   }
