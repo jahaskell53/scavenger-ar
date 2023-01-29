@@ -67,6 +67,8 @@
         document.getElementById("tint").style.opacity = 0.5;
         gameDone = true;
         foundPlace = false;
+        cnt = false;
+        destCount++;
         return;
       }
 
@@ -200,7 +202,7 @@
             document.getElementById("marker").setAttribute("visible", false);
             gameDone = true;
             foundPlace = false;
-            cnt = true;
+            cnt = false;
             destCount++;
             clearInterval(timer);
             main();
