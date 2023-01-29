@@ -126,12 +126,14 @@
         return;
       }
 
-      const newc = document.createElement("a-sphere");
-      newc.setAttribute("color", "#EF2D5E");
+      const newc = document.createElement("a-entity");
+      // <a-entity id="marker" gltf-model="#robot" visible="false" position="-5 3 -3"></a-entity>
+      // newc.setAttribute("color", "#EF2D5E");
       randomX = Math.random() * 20 - 10;
       randomY = Math.random() * 20 - 10;
       newc.setAttribute("position", `${randomX} 4 ${randomY}`);
-      newc.setAttribute("radius", "2.0");
+      // newc.setAttribute("radius", "2.0");
+      newc.setAttribute("gltf-model", "#robot");
       newc.id = `marker`;
       parent.appendChild(newc);
 
