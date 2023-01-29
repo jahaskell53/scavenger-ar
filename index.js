@@ -182,6 +182,7 @@
   }
   function popupOverlay(message) {
     document.querySelector("canvas").hidden = true;
+    document.querySelector("canvas").style.opacity = 0;
     document.getElementById("overlay").hidden = false;
     document.getElementById("overlay-message").innerHTML = message;
   }
