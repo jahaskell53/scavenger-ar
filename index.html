@@ -50,6 +50,22 @@
     arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
     renderer="antialias: true; alpha: true"
   >
+
+  <a-assets>
+
+    <a-asset-item 
+      id="glbtestmodel"
+      src="bear.glb">
+    </a-asset-item>
+
+  </a-assets>
+
+  <a-entity 
+      id="glbtest"
+      gltf-model="#glbtestmodel"
+      position="0 1 -2">
+  </a-entity>
+
     <a-entity
       cursor="fuse: true; fuseTimeout: 500"
       position="0 0 -1"
