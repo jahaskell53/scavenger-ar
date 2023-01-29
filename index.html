@@ -1,180 +1,427 @@
 <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 
 <style>
-    .uiwrapper {
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        top: 0;
-        left: 0;
-        text-align: center;
-        pointer-events: none;
-    }
+  .uiwrapper {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    pointer-events: none;
+  }
 
-    .uiblock {
-        font-family: sans-serif;
-        font-size: 4vmin;
-        width: 10em;
-        height: 1em;
-        display: inline-block;
-        color: #fff;
-        background-color: rgba(0, 0, 100, 0.5);
-        padding: 1em 2em;
-        margin-top: 20vh;
-    }
+  .uiblock {
+    font-family: sans-serif;
+    font-size: 4vmin;
+    width: 10em;
+    height: 1em;
+    display: inline-block;
+    color: #fff;
+    background-color: rgba(0, 0, 100, 0.5);
+    padding: 1em 2em;
+    margin-top: 20vh;
+  }
 
-    #tint {
-        width: 100vw !important;
-        height: 120vh !important;
-        margin-top: -20vh !important;
-        opacity: 0.5;
-    }
+  #tint {
+    width: 100vw !important;
+    height: 120vh !important;
+    margin-top: -20vh !important;
+    opacity: 0.5;
+  }
 
-    #timer {
-        margin-top: 30vh !important;
-    }
+  #timer {
+    margin-top: 30vh !important;
+  }
+  #score {
+    margin-top: 40vh !important;
+  }
 
-    #score {
-        margin-top: 40vh !important;
-    }
-
-    .as-console-wrapper {
-        display: none !important;
-    }
+  .as-console-wrapper {
+    /* ignore console warnings in snippet view */
+    display: none !important;
+  }
 </style>
 
 <body>
-    <a-scene cursor="rayOrigin:mouse" vr-mode-ui="enabled: false"
-        arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false" renderer="antialias: true; alpha: true">
-        <a-sound id="sound" src="sound.mp3" loop="true" position="0 2 5"></a-sound>
-        <a-entity cursor="fuse: true; fuseTimeout: 500" position="0 0 -1"
-            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: black; shader: flat">
-        </a-entity>
-        <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
-        <a-sphere href="http://google.com" id="marker" visible="false" position="-5 3 -3" radius="04.0" color="#EF2D5E"
-            marker></a-sphere>
-    </a-scene>
-    <script type="text/javascript"
-        src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"></script>
-    <script type="text/javascript"
-        src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <h1 id="count" class="uiblock uiwrapper">0</h1>
-    <h1 id="timer" class="uiblock uiwrapper">00:30</h1>
-    <h1 id="score" class="uiblock uiwrapper">0</h1>
-    <div id="tint" class="uiblock uiwrapper"></div>
+  <a-scene
+    cursor="rayOrigin:mouse"
+    vr-mode-ui="enabled: false"
+    arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
+    renderer="antialias: true; alpha: true"
+    id="scene"
+  >
+    <a-sound
+      id="sound"
+      src="sound.mp3"
+      loop="true"
+      position="0 2 5"
+    ></a-sound>
+
+    <a-entity
+      cursor="fuse: true; fuseTimeout: 500"
+      position="0 0 -1"
+      geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+      material="color: black; shader: flat"
+    >
+    </a-entity>
+    <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
+    <!-- <a-sky
+      src="#entrance"
+      rotation="0 -90 0"
+      position="0 0 0"
+      id="src-img-tpl"
+    ></a-sky> -->
+    <a-sphere
+      href="http://google.com"
+      id="marker"
+      visible="false"
+      position="-5 3 -3"
+      radius="04.0"
+      color="#EF2D5E"
+      marker
+    ></a-sphere>
+
+    <a-assets>
+      <!-- <audio id="river" src="assets/Bg-music.wav" autoplay="true" loop="true"></audio> -->
+    </a-assets>
+  </a-scene>
+  <script
+    type="text/javascript"
+    src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"
+  ></script>
+  <h1 id="count" class="uiblock uiwrapper">0</h1>
+  <h1 id="timer" class="uiblock uiwrapper">00:30</h1>
+  <h1 id="score" class="uiblock uiwrapper">0</h1>
+  <div id="tint" class="uiblock uiwrapper"></div>
 </body>
 
+<!-- <script src="frank.js" ></script> -->
+
 <script defer type="text/javascript">
-    function help() {
-        var count = 0;
         document.getElementById("tint").setAttribute("visible", false);
-        function stuff() {
-            document.getElementById("count").innerText = (
-                parseInt(document.getElementById("count").innerText) + 1
-            ).toString();
-            const marker = document.getElementById(`marker`);
-            const parent = marker.parentNode;
-            marker.parentNode.removeChild(marker);
-            const newc = document.createElement("a-sphere");
-            newc.setAttribute("color", "#EF2D5E");
-            randomX = Math.random() * 20 - 10;
-            randomY = Math.random() * 20 - 10;
-            newc.setAttribute("position", `${randomX} 4 ${randomY}`);
-            newc.setAttribute("radius", "2.0");
-            newc.id = `marker`;
-            parent.appendChild(newc);
-            newc.addEventListener("click", stuff);
-            count++;
+        var tint = document.getElementById("tint");
+        // tint.parentNode.removeChild(tint);
+        // marker.parentNode.removeChild(marker);
+        console.log("set to false");
+
+    var count = 0;
+
+    console.log("getting location");
+  getLocation();
+
+  document.getElementById("tint").width = window.innerWidth;
+  document.getElementById("tint").height = window.innerHeight;
+  // document.getElementById("tint").backgroundColor = "#";
+  // document.getElementById("tint").style.zIndex = "5";
+  document.getElementById("tint").style.position = "absolute";
+
+  let coordinateList = [];
+  var firstDistance = 0;
+  var cnt = false;
+  const colorArray = ['#FF0000', '#FF0000', '#990066', '#660099', '#3300CC', '#0000FF'];
+
+  function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
+      var R = 6371;
+      var dLat = deg2rad(lat2 - lat1);
+      var dLon = deg2rad(lon2 - lon1);
+      var a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+          Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c * 1000;
+      return d;
+  }
+
+  function round(num, places) {
+      var multiplier = Math.pow(10, places);
+      return Math.round(num * multiplier) / multiplier;
+  }
+
+  function getAvg(nums) {
+      const total = nums.reduce((acc, c) => acc + c, 0);
+      return total / nums.length;
+  }
+
+  function deg2rad(deg) {
+      return deg * (Math.PI / 180)
+  }
+  var time;
+  function getLocation() {
+      if (!navigator.geolocation) {
+          console.log('Geolocation API not supported by this browser.');
+      } else {
+          console.log('Checking location...');
+          navigator.geolocation.getCurrentPosition(success, error);
+      }
+      time = setTimeout(getLocation, 1000);
+  }
+
+  function success(position) {
+      let lat = round(position.coords.latitude, 4);
+      let long = round(position.coords.longitude, 4);
+      let distance = round(getDistanceFromLatLonInM(lat, long, 41.82689587519142, -71.39985316728439), 2);
+
+      if(!cnt) {
+          firstDistance = distance;
+          cnt = true;
+      }
+
+      if(coordinateList.length < 3) {
+          coordinateList.push(distance);
+      }
+      else {
+          coordinateList.shift();
+          coordinateList.push(distance);
+      }
+
+      let averageDistance = getAvg(coordinateList);
+
+      // let el_1 = document.getElementById('lat');
+      // let el_2 = document.getElementById('long');
+      // let el_3 = document.getElementById('distance');
+      // let el_4 = document.getElementById('list');
+      // el_1.innerHTML = lat;
+      // el_2.innerHTML = long;
+      // el_3.innerHTML = averageDistance;
+      // el_4.innerHTML = coordinateList;
+
+      console.log(averageDistance, firstDistance);
+      i = Math.floor(averageDistance / (firstDistance) * 4);
+      if (i >= 6) {
+          i = 5;
+      }
+      console.log(i);
+      if (i == 0 || i == 1 || i == 2) {
+        // document.getElementById("tint").setAttribute("visible", false);
+        tint.parentNode.removeChild(tint);
+        // document.getElementById("scene").appendChild(marker);
+        clearInterval(time);
+        document.getElementById("marker").setAttribute("visible", true);
+
+        AFRAME.registerComponent("marker", {
+      schema: {
+        default: "",
+      },
+      init() {
+        const sky = document.querySelector("a-sky");
+        var b = false;
+        let marker = document.getElementById("marker");
+        this.el.addEventListener("click", () => {
+          console.log("clicked")
+          document.getElementById("count").innerText = (
+            parseInt(document.getElementById("count").innerText) + 1
+          ).toString();
+
+          function timer(){
+      var sec = 20;
+      var timer = setInterval(function(){
+          document.getElementById('timer').innerHTML='00:'+sec;
+          sec--;
+          console.log("timer");
+
+          if (sec < 0) {
+            // document.getElementById("tint").hidden = false;
+        document.getElementById("tint").setAttribute("visible", false);
+        tint.parentNode.removeChild(tint);
+
+
+              clearInterval(timer);
+          }
+      }, 1000);
+  }
+
+  timer();
+          const marker = document.getElementById("marker");
+          const parent = marker.parentNode;
+          marker.parentNode.removeChild(marker);
+          const newc = document.createElement("a-sphere");
+          randomX = Math.random() * 10 - 5;
+          randomY = Math.random() * 10 - 5;
+          newc.setAttribute("color", "#EF2D5E");
+          newc.setAttribute("position", `${randomX} ${randomY} -3`);
+          newc.setAttribute("radius", "4.0");
+          newc.id = `marker`;
+          parent.appendChild(newc);
+          newc.addEventListener("click", stuff)
+          AFRAME.registerComponent(`marker${count}`, {
+            schema: {
+              default: "",
+            },
+            handle,
+          });
+          count++;
+          if (count >= 10) {
+              document.getElementById("score") = parseInt(document.getElementById("score")) + 100;
+              // document.getElementById("tint").hidden = false;
+        document.getElementById("tint").setAttribute("visible", false);
+        tint.parentNode.removeChild(tint);
+
+
+          }
+
+          // if (b) {
+          //   sky.setAttribute("src", "#entrance");
+          // } else {
+          //   sky.setAttribute("src", "#study");
+          // }
+          // b = !b;
+          console.log("clicked");
+        });
+      },
+    });
+
+
+      }
+      document.getElementById("tint").style.backgroundColor = colorArray[i];
+  }
+
+  function error() {
+      console.log('Geolocation error!');
+  }
+
+    window.addEventListener("click", () => {
+      console.log("playing");
+      document.getElementById("sound").components.sound.playSound();
+    })
+    // document.getElementById("tint").width = window.innerWidth;
+    // document.getElementById("tint").height = window.innerHeight;
+    // document.getElementById("tint").backgroundColor = "#";
+    // document.getElementById("tint").style.zIndex = "5";
+    // document.getElementById("tint").style.position = "absolute";
+    function handle() {
+      const sky = document.querySelector("a-sky");
+      var b = false;
+      marker.addEventListener("click", () => {
+        document.getElementById("count").innerText = (
+          parseInt(document.getElementById("count").innerText) + 1
+        ).toString();
+        const marker = document.getElementById("marker");
+        const parent = marker.parentNode;
+        marker.parentNode.removeChild(marker);
+        const newc = document.createElement("a-sphere");
+        randomX = Math.random() * 10 - 5;
+        randomY = Math.random() * 10 - 5;
+        newc.setAttribute("color", "#EF2D5E");
+        newc.setAttribute("position", `${randomX} ${randomY} -3`);
+        newc.setAttribute("radius", "4.0");
+        newc.id = "marker";
+        parent.appendChild(newc);
+
+        // if (b) {
+        //   sky.setAttribute("src", "#entrance");
+        // } else {
+        //   sky.setAttribute("src", "#study");
+        // }
+        // b = !b;
+        console.log("clicked");
+      });
+    }
+
+    function stuff() {
+          document.getElementById("count").innerText = (
+            parseInt(document.getElementById("count").innerText) + 1
+          ).toString();
+          const marker = document.getElementById(`marker`);
+          console.log("markler", marker)
+          marker.color = "#EF2D5E";
+          const parent = marker.parentNode;
+          marker.parentNode.removeChild(marker);
+          const newc = document.createElement("a-sphere");
+          newc.setAttribute("color", "#EF2D5E");
+          randomX = Math.random() * 20 - 10;
+          randomY = Math.random() * 20 - 10;
+          newc.setAttribute("position", `${randomX} 4 ${randomY}`);
+          newc.setAttribute("radius", "2.0");
+          newc.id = `marker`;
+          parent.appendChild(newc);
+          newc.addEventListener("click", stuff)
+          AFRAME.registerComponent(`marker${count}`, {
+            schema: {
+              default: "",
+            },
+            handle,
+          });
+          count++;
+
         };
-        const marker = document.getElementById(`marker`);
-        marker.setAttribute("visibility", "true");
-        marker.addEventListener("click", stuff);
-    }
 
-    getLocation();
 
-    document.getElementById("tint").width = window.innerWidth;
-    document.getElementById("tint").height = window.innerHeight;
-    document.getElementById("tint").style.position = "absolute";
 
-    let coordinateList = [];
-    var firstDistance = 0;
-    var cnt = false;
-    const colorArray = ['#FF0000', '#FF0000', '#990066', '#660099', '#3300CC', '#0000FF'];
 
-    function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
-        var R = 6371;
-        var dLat = deg2rad(lat2 - lat1);
-        var dLon = deg2rad(lon2 - lon1);
-        var a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c * 1000;
-        return d;
-    }
+  //   AFRAME.registerComponent("marker", {
+  //     schema: {
+  //       default: "",
+  //     },
+  //     init() {
+  //       const sky = document.querySelector("a-sky");
+  //       var b = false;
+  //       marker.addEventListener("click", () => {
+  //         document.getElementById("count").innerText = (
+  //           parseInt(document.getElementById("count").innerText) + 1
+  //         ).toString();
 
-    function round(num, places) {
-        var multiplier = Math.pow(10, places);
-        return Math.round(num * multiplier) / multiplier;
-    }
+  //         function timer(){
+  //     var sec = 20;
+  //     var timer = setInterval(function(){
+  //         document.getElementById('timer').innerHTML='00:'+sec;
+  //         sec--;
+  //         console.log("timer");
 
-    function getAvg(nums) {
-        const total = nums.reduce((acc, c) => acc + c, 0);
-        return total / nums.length;
-    }
+  //         if (sec < 0) {
+  //           // document.getElementById("tint").hidden = false;
+  //       document.getElementById("tint").setAttribute("visible", false);
+  //       tint.parentNode.removeChild(tint);
 
-    function deg2rad(deg) {
-        return deg * (Math.PI / 180)
-    }
 
-    function getLocation() {
-        if (!navigator.geolocation) {
-            console.log('Geolocation API not supported by this browser.');
-        } else {
-            console.log('Checking location...');
-            navigator.geolocation.getCurrentPosition(success, error);
-        }
-        setTimeout(getLocation, 1000);
-    }
+  //             clearInterval(timer);
+  //         }
+  //     }, 1000);
+  // }
 
-    function success(position) {
-        let lat = round(position.coords.latitude, 4);
-        let long = round(position.coords.longitude, 4);
-        let distance = round(getDistanceFromLatLonInM(lat, long, 41.826250, -71.401897), 2);
+  // timer();
+  //         const marker = document.getElementById("marker");
+  //         const parent = marker.parentNode;
+  //         marker.parentNode.removeChild(marker);
+  //         const newc = document.createElement("a-sphere");
+  //         randomX = Math.random() * 10 - 5;
+  //         randomY = Math.random() * 10 - 5;
+  //         newc.setAttribute("color", "#EF2D5E");
+  //         newc.setAttribute("position", `${randomX} ${randomY} -3`);
+  //         newc.setAttribute("radius", "4.0");
+  //         newc.id = `marker`;
+  //         parent.appendChild(newc);
+  //         newc.addEventListener("click", stuff)
+  //         AFRAME.registerComponent(`marker${count}`, {
+  //           schema: {
+  //             default: "",
+  //           },
+  //           handle,
+  //         });
+  //         count++;
+  //         if (count >= 10) {
+  //             document.getElementById("score") = parseInt(document.getElementById("score")) + 100;
+  //             // document.getElementById("tint").hidden = false;
+  //       document.getElementById("tint").setAttribute("visible", false);
+  //       tint.parentNode.removeChild(tint);
 
-        if (!cnt) {
-            firstDistance = distance;
-            cnt = true;
-        }
 
-        if (coordinateList.length < 3) {
-            coordinateList.push(distance);
-        }
-        else {
-            coordinateList.shift();
-            coordinateList.push(distance);
-        }
+  //         }
 
-        let averageDistance = getAvg(coordinateList);
-
-        i = Math.floor(averageDistance / (firstDistance) * 4);
-        if (i >= 6) {
-            i = 5;
-        }
-        console.log(i);
-        if (i == 0 || i == 1 || i == 3 || i == 4) {
-            document.getElementById("tint").setAttribute("visible", false);
-            document.getElementById("marker").setAttribute("visible", true);
-            f = true;
-            help();
-        }
-        document.getElementById("tint").style.backgroundColor = colorArray[i];
-    }
-
-    function error() {
-        console.log('Geolocation error!');
-    }
+  //         // if (b) {
+  //         //   sky.setAttribute("src", "#entrance");
+  //         // } else {
+  //         //   sky.setAttribute("src", "#study");
+  //         // }
+  //         // b = !b;
+  //         console.log("clicked");
+  //       });
+  //     },
+  //   });
 
 </script>
