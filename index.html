@@ -93,8 +93,9 @@
       var count = 0;
       var gameDone = false;
       var score = 0;
+      var timer;
 
-    function help() {
+    function clickItem() {
       // document.getElementById("tint").setAttribute("visible", false);
       function stuff() {
         if(gameDone) {
@@ -117,7 +118,7 @@
           score = score + 100;
         document.getElementById("score").innerText = score;
         document.getElementById("timer").innerText = "00:00";
-        
+        clearInterval(timer);
               // document.getElementById("tint").hidden = false;
         document.getElementById("tint").style.opacity = 0.1;
         gameDone = true;
@@ -235,12 +236,12 @@
 
         function timer(){
       var sec = 20;
-      var timer = setInterval(function(){
+      timer = setInterval(function(){
           document.getElementById('timer').innerHTML='00:'+sec;
           sec--;
           console.log("timer");
 
-          if (sec < 0 || gameDone) {
+          if (sec < 0) {
             // document.getElementById("tint").hidden = false;
         document.getElementById("tint").style.opacity = 0.5;
         document.getElementById("timer").innerText = "00:00";
@@ -251,7 +252,7 @@
   }
 
   timer();
-        help();
+        clickItem();
       }
       document.getElementById("tint").style.backgroundColor = colorArray[i];
     }
