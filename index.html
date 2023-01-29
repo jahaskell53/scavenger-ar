@@ -52,18 +52,19 @@
   >
 
   <a-assets>
-
+<!-- 
     <a-asset-item 
       id="glbtestmodel"
       src="campfire.glb"
       timeout="10000">
-    </a-asset-item>
+    </a-asset-item> -->
 
   </a-assets>
 
   <a-entity 
       id="glbtest"
-      gltf-model="#glbtestmodel"
+      gltf-model="url(campfire.glb)"
+      scale="0.2 0.2 0.2"
       position="0 1 -2">
   </a-entity>
 
