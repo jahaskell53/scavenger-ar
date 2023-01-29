@@ -1,0 +1,63 @@
+  .overlay {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    pointer-events: none;
+    background-image: url("./camping.webp");
+    background-size: cover;
+  }
+
+  .overlay-message {
+    margin-top: 25vh;
+    font-family: sans-serif;
+    color: black;
+    font-size: 10vmin;
+  }
+
+  .jumbotron {
+    background-color:white;
+  }
+
+  .uiwrapper {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .uiblock {
+    font-family: sans-serif;
+    font-size: 4vmin;
+    width: 10em;
+    height: 1em;
+    display: inline-block;
+    color: #fff;
+    background-color: rgba(0, 0, 100, 0.5);
+    padding: 1em 2em;
+    margin-top: 60vh;
+  }
+
+  #tint {
+    width: 100vw !important;
+    height: 120vh !important;
+    margin-top: -20vh !important;
+    opacity: 0.5;
+  }
+
+  #timer {
+    margin-top: 70vh !important;
+  }
+
+  #score {
+    margin-top: 80vh !important;
+  }
+
+  .as-console-wrapper {
+    display: none !important;
+  }
