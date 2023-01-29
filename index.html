@@ -74,25 +74,14 @@
     >
     </a-entity>
     <a-camera id="camera" gps-new-camera="gpsMinDistance: 5"></a-camera>
-    <a-sphere
-      href="http://google.com"
-      id="marker"
-      visible="false"
-      position="-5 3 -3"
-      radius="04.0"
-      color="#EF2D5E"
-      marker
-    ></a-sphere>
+    <a-sphere href="http://google.com" id="marker" visible="false" position="-5 3 -3" radius="04.0" color="#EF2D5E"
+      marker></a-sphere>
   </a-scene>
 
-  <script
-    type="text/javascript"
-    src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"
-  ></script>
-  <script
-    type="text/javascript"
-    src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"
-  ></script>
+  <script type="text/javascript"
+    src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js"></script>
+  <script type="text/javascript"
+    src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
   <h1 id="count" class="uiblock uiwrapper">0</h1>
   <h1 id="timer" class="uiblock uiwrapper">00:20</h1>
@@ -171,9 +160,9 @@
     var a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(deg2rad(lat1)) *
-        Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c * 1000;
     return d;
