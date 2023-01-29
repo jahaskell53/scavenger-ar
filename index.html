@@ -106,9 +106,9 @@
 
       if (ballCount >= 10) {
         score = score + 100;
+        clearInterval(timer)
         document.getElementById("score").innerText = "Score: " + score;
         document.getElementById("timer").innerText = "Time: 00:00";
-        clearInterval(timer);
         document.getElementById("tint").style.opacity = 0.5;
         gameDone = true;
         return;
@@ -218,10 +218,11 @@
     if (i == 0 || i == 1) {
       ballCount = 0;
       document.getElementById("count").innerText = "Balls: " + ballCount.toString();
-      sec = 20;
+      // sec = 20;
       document.getElementById("timer").innerText = "Time: 00:20";
 
       foundPlace = true;
+      gameDone = false;
       document.getElementById("tint").style.opacity = 0;
       document.getElementById("marker").setAttribute("visible", true);
 
@@ -237,15 +238,14 @@
             document.getElementById("timer").innerHTML = "Time: 00:" + sec;
           }
           sec--;
-          // TODO: why?
           if (sec <= 0) {
             document.getElementById("tint").style.opacity = 0.5;
             document.getElementById("timer").innerText = "Time: 00:00";
-            clearInterval(timer);
             gameDone = true;
             foundPlace = false;
             cnt = true;
             destCount++;
+            clearInterval(timer);
             main();
           }
         }, 1000);
