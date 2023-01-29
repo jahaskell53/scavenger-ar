@@ -5,6 +5,7 @@
 <script type="text/javascript">
   var count = 0;
   function click() {
+    const sky = document.querySelector("a-sky");
     var b = false;
     this.el.addEventListener("click", () => {
       document.getElementById("count").innerText = (
@@ -22,7 +23,12 @@
       newc.id = "marker";
       parent.appendChild(newc);
 
-    
+      if (b) {
+        sky.setAttribute("src", "#entrance");
+      } else {
+        sky.setAttribute("src", "#study");
+      }
+      b = !b;
       console.log("clicked");
     });
   }
@@ -61,7 +67,8 @@
     schema: {
       default: "",
     },
-    initClick() {
+    init() {
+      const sky = document.querySelector("a-sky");
       var b = false;
       this.el.addEventListener("click", () => {
         document.getElementById("count").innerText = (
@@ -87,7 +94,12 @@
         });
         count++;
 
-      
+        if (b) {
+          sky.setAttribute("src", "#entrance");
+        } else {
+          sky.setAttribute("src", "#study");
+        }
+        b = !b;
         console.log("clicked");
       });
     },
